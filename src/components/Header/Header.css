@@ -1,5 +1,7 @@
-.wrapper {
+.header {
   display: flex;
-  flex-direction: column;
-  width: 70%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 42px;
 }
