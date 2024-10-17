@@ -14,7 +14,6 @@ function App() {
           <Header></Header>
           <Section></Section>
           <AddTask></AddTask>
-          <TaskList></TaskList>
         </div>
       </div>
     </>

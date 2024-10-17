@@ -9,7 +9,7 @@ function Section() {
           <p className="text-small">Keep it up</p>
         </div>
 
-        <div className="c">{"0/2"}</div>
+        <div className="c">0/0</div>
       </section>
     </>
   );
