@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header/Header";
 import Section from "./components/Section/Section";
 import AddTask from "./components/AddTask/AddTask";
+import TaskList from "./components/Task/TaskList/TaskList";
 
 import "./styles/styles.css";
 
@@ -13,6 +14,7 @@ function App() {
           <Header></Header>
           <Section></Section>
           <AddTask></AddTask>
+          <TaskList></TaskList>
         </div>
       </div>
     </>

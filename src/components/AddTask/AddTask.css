@@ -14,7 +14,7 @@
 }
 
 .form input {
-  height: 50px;
+  height: 20px;
   border-radius: 11px;
   background-color: #1f2937;
   color: #fff;
@@ -28,7 +28,7 @@
   width: 10%;
   background-color: #88ab33;
   border: none;
-  height: 50px;
+  height: 43px;
   border-radius: 11px;
   margin-left: 20px;
 }

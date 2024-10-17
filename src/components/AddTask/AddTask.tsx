@@ -15,7 +15,7 @@ function AddTask() {
         </label>
         <button>
           <span className="visually-hidden">Submit</span>
-          <img src={addButton} alt="Todo Logo" width={32} height={32} />
+          <img src={addButton} alt="add-button" width={32} height={32} />
         </button>
       </form>
     </>

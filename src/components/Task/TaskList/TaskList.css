@@ -1,0 +1,117 @@
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+  margin-left: 40px;
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  unicode-bidi: isolate;
+}
+
+/* button {
+  appearance: auto;
+  text-rendering: auto;
+
+  letter-spacing: normal;
+  word-spacing: normal;
+  line-height: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: center;
+  align-items: flex-start;
+  cursor: default;
+  box-sizing: border-box;
+  margin: 0em;
+  padding-block: 1px;
+  padding-inline: 6px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonborder;
+  border-image: initial;
+} */
+
+.todo_list {
+  align-self: center;
+  width: 97%;
+  flex-direction: column;
+  margin-top: 27px;
+  margin-bottom: 27px;
+  gap: 27px;
+  max-width: 455px;
+  display: flex;
+  align-items: center;
+}
+
+.todo_item {
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  border: 1px solid #c2b39a;
+  font-size: 16px;
+  color: #fff;
+  padding: 12px;
+  max-width: 455px;
+  display: flex;
+  align-items: center;
+  background-color: #0d0d0d;
+}
+
+.todo_items_left {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  gap: 12px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* .todo_items_right {
+  display: flex;
+  align-items: center;
+  background-color: #0d0d0d;
+  gap: 4px;
+} */
+
+.todo_items_right {
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* Make sure this is applied */
+  gap: 4px;
+}
+
+.todo_items_right button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+}
+
+.todo_items_right button svg {
+  fill: #c2b39a;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
