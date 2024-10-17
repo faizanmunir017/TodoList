@@ -1,9 +1,10 @@
-import todoLogo from "./assets/todo-logo.svg";
+import todoLogo from "../../assets/todo-logo.svg"; // Adjust the number of "../" as necessary
+import "./Header.css";
 
 function Header() {
   return (
     <>
-      <header>
+      <header className="header">
         <img
           className="logo"
           src={todoLogo}
