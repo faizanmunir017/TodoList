@@ -3,7 +3,16 @@ import checkListCircle from "../../../assets/check-list-circle.svg";
 import editButton from "../../../assets/edit-button.svg";
 import deleteButton from "../../../assets/delete-button.svg";
 
-function TaskList() {
+interface TaskListProps {
+  index: number; // The index of the task
+  removeTask: (index: number) => void; // Function to remove a task
+  taskName: string;
+}
+
+function TaskList({ index, removeTask, taskName }: TaskListProps) {
+  const handleDelete = () => {
+    removeTask(index); // Call the removeTask function with the task index
+  };
   return (
     <>
       <li id="6af47b20-551e-4a19-9643-020c365149e2" className="todo_item">
@@ -14,7 +23,7 @@ function TaskList() {
             width={34}
             height={34}
           ></img>
-          <p style={{ textDecoration: "line-through" }}>ngdfjvj</p>
+          <p>{taskName}</p>
         </button>
         <div className="todo_items_right">
           <button>
@@ -35,7 +44,7 @@ function TaskList() {
               ></path>
             </svg>
           </button>
-          <button>
+          <button onClick={handleDelete}>
             <span className="visually-hidden">Delete</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

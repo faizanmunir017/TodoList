@@ -1,16 +1,31 @@
 import "./AddTask.css";
 import addButton from "../../assets/add-button.svg"; // Corrected path
 import TaskList from "../Task/TaskList/TaskList";
-import { useState } from "react";
 
-function AddTask(): JSX.Element {
-  const [showTaskList, setTaskList] = useState<number[]>([]);
+interface AddTaskProps {
+  tasks: { id: number; name: string }[]; // Array of task objects
+  addTask: () => void;
+  removeTask: (index: number) => void;
+  taskName: string; // Task input value
+  setTaskName: (name: string) => void; // Function to update task input
+}
 
-  const add = (event: React.MouseEvent<HTMLButtonElement>): void => {
+function AddTask({
+  tasks,
+  addTask,
+  removeTask,
+  taskName,
+  setTaskName,
+}: AddTaskProps) {
+  const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    setTaskList((prevTaskList) => [...prevTaskList, prevTaskList.length + 1]);
-    console.log("add button clicked");
+    addTask(); // Call addTask from props
   };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskName(event.target.value); // Update taskName state
+  };
+
   return (
     <>
       <form className="form">
@@ -20,24 +35,27 @@ function AddTask(): JSX.Element {
             id="todo"
             placeholder="Write your next task"
             name="todo"
-          ></input>
+            value={taskName} // Bind input value to taskName
+            onChange={handleInputChange} // Handle input change
+          />
         </label>
-        <button onClick={add}>
+        <button onClick={handleAdd}>
           <span className="visually-hidden">Submit</span>
           <img src={addButton} alt="add-button" width={32} height={32} />
         </button>
       </form>
-      {}
 
       <ol className="todo_list">
-        {showTaskList.length > 0 ? (
-          showTaskList.map((_, index) => (
-            // Add parentheses here to return the JSX
-            <TaskList key={index} />
-          ))
-        ) : (
-          <p>Seems lonely in here, what are you up to?</p>
-        )}
+        {tasks.length > 0
+          ? tasks.map((task, index) => (
+              <TaskList
+                key={index}
+                index={index}
+                removeTask={removeTask}
+                taskName={task.name} // Pass task name as prop
+              />
+            ))
+          : null}
       </ol>
     </>
   );
