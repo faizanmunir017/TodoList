@@ -1,6 +1,11 @@
 import "./Section.css";
 
-function Section() {
+interface SectionProps {
+  completedCount: number; // Number of completed tasks
+  totalCount: number; // Total number of tasks
+}
+
+function Section({ completedCount, totalCount }: SectionProps) {
   return (
     <>
       <section className="todo-section">
@@ -9,7 +14,7 @@ function Section() {
           <p className="text-small">Keep it up</p>
         </div>
 
-        <div className="c">0/0</div>
+        <div className="c">{`${completedCount}/${totalCount}`}</div>
       </section>
     </>
   );
