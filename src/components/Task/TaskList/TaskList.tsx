@@ -4,11 +4,10 @@ import editButton from "../../../assets/edit-button.svg";
 import deleteButton from "../../../assets/delete-button.svg";
 
 interface TaskListProps {
-  index: number; // The index of the task
-  removeTask: (index: number) => void; // Function to remove a task
-  toggleTaskCompletion: (index: number) => void; // Function to toggle task completion
-  taskName: string;
-  completed: boolean; // Add completed prop
+  index: number;
+  removeTask: (index: number) => void;
+  toggleTaskCompletion: (index: number) => void;
+
   task: { id: number; name: string; completed: boolean };
 }
 
@@ -16,19 +15,11 @@ function TaskList({
   index,
   removeTask,
   toggleTaskCompletion,
-  taskName,
-  completed,
   task,
 }: TaskListProps) {
   const handleDelete = () => {
     removeTask(index); // Call the removeTask function with the task index
   };
-
-  // const handleCompletionToggle = () => {
-  //   toggleTaskCompletion(index); // Toggle the completion state
-  //   // console.log("index is ", index);
-  //   console.log("button toggled");
-  // };
 
   return (
     <li className="todo_item">
@@ -53,7 +44,7 @@ function TaskList({
         >
           <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998"></circle>
         </svg>
-        <p>{taskName}</p>
+        <p>{task.name}</p>
       </button>
       <div className="todo_items_right">
         <button>

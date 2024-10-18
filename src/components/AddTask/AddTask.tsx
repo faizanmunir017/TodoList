@@ -1,25 +1,43 @@
 import "./AddTask.css";
 import addButton from "../../assets/add-button.svg"; // Corrected path
 import TaskList from "../Task/TaskList/TaskList";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface AddTaskProps {
   tasks: { id: number; name: string; completed: boolean }[]; // Array of task objects
-  addTask: () => void;
-  removeTask: (index: number) => void;
-  toggleTaskCompletion: (index: number) => void; // Pass toggle function
-  taskName: string; // Task input value
-  setTaskName: (name: string) => void; // Function to update task input
+  setTasks: React.Dispatch<
+    React.SetStateAction<{ id: number; name: string; completed: boolean }[]>
+  >;
 }
 
-function AddTask({
-  tasks,
-  addTask,
-  removeTask,
-  toggleTaskCompletion,
-  taskName,
-  setTaskName,
-}: AddTaskProps) {
+function AddTask({ tasks, setTasks }: AddTaskProps) {
+  const [taskName, setTaskName] = useState<string>(""); // State for task input
+
+  const addTask = () => {
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { id: prevTasks.length + 1, name: taskName, completed: false },
+    ]);
+    setTaskName("");
+  };
+
+  const removeTask = (index: number) => {
+    setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
+  };
+
+  const toggleTaskCompletion = (index: number) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task, i) => {
+        if (i === index) {
+          return { ...task, completed: !task.completed };
+        }
+        return task;
+      });
+      console.log("here");
+      return updatedTasks; // Return the updated tasks array
+    });
+  };
+
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     addTask(); // Call addTask from props
@@ -28,10 +46,6 @@ function AddTask({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskName(event.target.value); // Update taskName state
   };
-
-  // useEffect(() => {
-  //   console.log(tasks);
-  // }, [tasks]);
 
   return (
     <>
@@ -60,10 +74,8 @@ function AddTask({
                 key={task.id} // Use id for a unique key
                 index={index}
                 removeTask={removeTask}
-                toggleTaskCompletion={() => toggleTaskCompletion(index)} // Pass toggle function
+                toggleTaskCompletion={toggleTaskCompletion} // Pass toggle function
                 task={task}
-                taskName={task.name} // Pass task name as prop
-                completed={task.completed} // Pass completion status
               />
             );
           })
