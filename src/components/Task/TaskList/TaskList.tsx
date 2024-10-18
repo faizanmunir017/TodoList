@@ -2,23 +2,32 @@ import "./TaskList.css";
 import checkListCircle from "../../../assets/check-list-circle.svg";
 import editButton from "../../../assets/edit-button.svg";
 import deleteButton from "../../../assets/delete-button.svg";
+import { SetTask } from "../../AddTask/AddTask";
 
 interface TaskListProps {
   index: number;
   removeTask: (index: number) => void;
-  toggleTaskCompletion: (index: number) => void;
+  setTasks: SetTask;
 
   task: { id: number; name: string; completed: boolean };
 }
 
-function TaskList({
-  index,
-  removeTask,
-  toggleTaskCompletion,
-  task,
-}: TaskListProps) {
+function TaskList({ index, removeTask, setTasks, task }: TaskListProps) {
   const handleDelete = () => {
     removeTask(index); // Call the removeTask function with the task index
+  };
+
+  const toggleTaskCompletion = (index: number) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task, i) => {
+        if (i === index) {
+          return { ...task, completed: !task.completed };
+        }
+        return task;
+      });
+      console.log("here");
+      return updatedTasks; // Return the updated tasks array
+    });
   };
 
   return (

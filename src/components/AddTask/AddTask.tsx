@@ -3,11 +3,13 @@ import addButton from "../../assets/add-button.svg"; // Corrected path
 import TaskList from "../Task/TaskList/TaskList";
 import { useEffect, useState } from "react";
 
+export type SetTask = React.Dispatch<
+  React.SetStateAction<{ id: number; name: string; completed: boolean }[]>
+>;
+
 interface AddTaskProps {
   tasks: { id: number; name: string; completed: boolean }[]; // Array of task objects
-  setTasks: React.Dispatch<
-    React.SetStateAction<{ id: number; name: string; completed: boolean }[]>
-  >;
+  setTasks: SetTask;
 }
 
 function AddTask({ tasks, setTasks }: AddTaskProps) {
@@ -23,19 +25,6 @@ function AddTask({ tasks, setTasks }: AddTaskProps) {
 
   const removeTask = (index: number) => {
     setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
-  };
-
-  const toggleTaskCompletion = (index: number) => {
-    setTasks((prevTasks) => {
-      const updatedTasks = prevTasks.map((task, i) => {
-        if (i === index) {
-          return { ...task, completed: !task.completed };
-        }
-        return task;
-      });
-      console.log("here");
-      return updatedTasks; // Return the updated tasks array
-    });
   };
 
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -74,7 +63,7 @@ function AddTask({ tasks, setTasks }: AddTaskProps) {
                 key={task.id} // Use id for a unique key
                 index={index}
                 removeTask={removeTask}
-                toggleTaskCompletion={toggleTaskCompletion} // Pass toggle function
+                setTasks={setTasks} // Pass toggle function
                 task={task}
               />
             );
