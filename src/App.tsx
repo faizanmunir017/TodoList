@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Section from "./components/Section/Section";
-import AddTask from "./components/AddTask/AddTask";
-import "./styles/styles.css";
+import TodoList from "./components/TodoList/TodoList";
 
 // Define a task object structure
 interface Task {
@@ -12,22 +8,7 @@ interface Task {
 }
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]); // Array of task objects
-
-  return (
-    <div className="container">
-      <div className="wrapper">
-        <Header />
-        <div className="inside-container">
-          <Section
-            completedCount={tasks.filter((task) => task.completed).length}
-            totalCount={tasks.length}
-          />
-          <AddTask tasks={tasks} setTasks={setTasks} />
-        </div>
-      </div>
-    </div>
-  );
+  return <TodoList></TodoList>;
 }
 
 export default App;

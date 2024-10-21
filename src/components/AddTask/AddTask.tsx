@@ -1,5 +1,6 @@
 import "./AddTask.css";
-import addButton from "../../assets/add-button.svg"; // Corrected path
+import addButton from "../../assets/add-button.svg";
+
 import TaskList from "../Task/TaskList/TaskList";
 import { useEffect, useState } from "react";
 
@@ -12,7 +13,7 @@ interface AddTaskProps {
   setTasks: SetTask;
 }
 
-function AddTask({ tasks, setTasks }: AddTaskProps) {
+const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
   const [taskName, setTaskName] = useState<string>(""); // State for task input
 
   const addTask = () => {
@@ -83,6 +84,6 @@ function AddTask({ tasks, setTasks }: AddTaskProps) {
       </ol>
     </>
   );
-}
+};
 
 export default AddTask;
