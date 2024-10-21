@@ -16,6 +16,10 @@ body {
   width: 70%;
 }
 
+.inside-container {
+  margin-left: 180px;
+}
+
 /* 
 
 .wrapper {

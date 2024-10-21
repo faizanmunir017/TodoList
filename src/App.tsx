@@ -18,11 +18,13 @@ function App() {
     <div className="container">
       <div className="wrapper">
         <Header />
-        <Section
-          completedCount={tasks.filter((task) => task.completed).length}
-          totalCount={tasks.length}
-        />
-        <AddTask tasks={tasks} setTasks={setTasks} />
+        <div className="inside-container">
+          <Section
+            completedCount={tasks.filter((task) => task.completed).length}
+            totalCount={tasks.length}
+          />
+          <AddTask tasks={tasks} setTasks={setTasks} />
+        </div>
       </div>
     </div>
   );

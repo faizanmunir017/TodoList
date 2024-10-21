@@ -3,21 +3,47 @@ import checkListCircle from "../../../assets/check-list-circle.svg";
 import editButton from "../../../assets/edit-button.svg";
 import deleteButton from "../../../assets/delete-button.svg";
 import { SetTask } from "../../AddTask/AddTask";
+import { useState, useRef } from "react";
 
 interface TaskListProps {
   index: number;
   removeTask: (index: number) => void;
   setTasks: SetTask;
-
+  editTask: (index: number, newTaskName: string) => void;
   task: { id: number; name: string; completed: boolean };
 }
 
-function TaskList({ index, removeTask, setTasks, task }: TaskListProps) {
+function TaskList({
+  index,
+  removeTask,
+  setTasks,
+  editTask,
+  task,
+}: TaskListProps) {
   const handleDelete = () => {
     removeTask(index); // Call the removeTask function with the task index
   };
 
+  const [isEditing, setIsEditing] = useState(false);
+  const taskNameRef = useRef<HTMLParagraphElement>(null);
+
+  const handleEdit = () => {
+    console.log("Edit button clicked");
+    setIsEditing(true); // Enter edit mode
+    setTimeout(() => {
+      taskNameRef.current?.focus(); // Set focus to the <p> tag
+    }, 0);
+  };
+
+  const handleEditSubmit = () => {
+    if (taskNameRef.current) {
+      const newTaskName = taskNameRef.current.textContent || task.name; // Get the new task name from the ref
+      editTask(index, newTaskName); // Pass the new task name to the editTask function
+    }
+    setIsEditing(false); // Exit edit mode after saving
+  };
   const toggleTaskCompletion = (index: number) => {
+    console.log("toggle complete");
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.map((task, i) => {
         if (i === index) {
@@ -25,9 +51,15 @@ function TaskList({ index, removeTask, setTasks, task }: TaskListProps) {
         }
         return task;
       });
-      console.log("here");
       return updatedTasks; // Return the updated tasks array
     });
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLParagraphElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent newline insertion in contentEditable
+      handleEditSubmit(); // Save and exit edit mode
+    }
   };
 
   return (
@@ -53,10 +85,19 @@ function TaskList({ index, removeTask, setTasks, task }: TaskListProps) {
         >
           <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998"></circle>
         </svg>
-        <p>{task.name}</p>
+        <p
+          ref={taskNameRef}
+          contentEditable={isEditing}
+          suppressContentEditableWarning={true}
+          onKeyDown={handleKeyDown}
+          // onBlur={handleEditSubmit}
+          // className={isEditing ? "editable" : ""}
+        >
+          {task.name}
+        </p>
       </button>
       <div className="todo_items_right">
-        <button>
+        <button onClick={handleEdit}>
           <span className="visually-hidden">Edit</span>
           <svg
             clipRule="evenodd"

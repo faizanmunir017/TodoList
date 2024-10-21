@@ -7,13 +7,18 @@ ol {
   margin-inline-end: 0px;
   padding-inline-start: 40px;
   unicode-bidi: isolate;
-  margin-left: 40px;
+  margin-left: 25px;
 }
 
 li {
   display: list-item;
   text-align: -webkit-match-parent;
   unicode-bidi: isolate;
+}
+
+p[contenteditable="true"]:focus {
+  outline: none; /* Remove any default outline */
+  border: 1px solid #ccc; /* Optional: Add a border for visual feedback */
 }
 
 /* button {

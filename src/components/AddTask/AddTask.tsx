@@ -36,6 +36,14 @@ function AddTask({ tasks, setTasks }: AddTaskProps) {
     setTaskName(event.target.value); // Update taskName state
   };
 
+  const editTask = (index: number, newTaskName: string) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = [...prevTasks];
+      updatedTasks[index].name = newTaskName; // Update the task name
+      return updatedTasks;
+    });
+  };
+
   return (
     <>
       <form className="form">
@@ -65,6 +73,7 @@ function AddTask({ tasks, setTasks }: AddTaskProps) {
                 removeTask={removeTask}
                 setTasks={setTasks} // Pass toggle function
                 task={task}
+                editTask={editTask}
               />
             );
           })
