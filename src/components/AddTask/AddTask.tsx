@@ -1,48 +1,29 @@
 import "./AddTask.css";
 import addButton from "../../assets/add-button.svg";
-
 import TaskList from "../Task/TaskList/TaskList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask } from "../../State/taskSlice";
+import { RootState } from "../../State/store";
 
-export type SetTask = React.Dispatch<
-  React.SetStateAction<{ id: number; name: string; completed: boolean }[]>
->;
-
-interface AddTaskProps {
-  tasks: { id: number; name: string; completed: boolean }[]; // Array of task objects
-  setTasks: SetTask;
-}
-
-const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
-  const [taskName, setTaskName] = useState<string>(""); // State for task input
-
-  const addTask = () => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      { id: prevTasks.length + 1, name: taskName, completed: false },
-    ]);
-    setTaskName("");
-  };
-
-  const removeTask = (index: number) => {
-    setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
-  };
+const AddTask = (): JSX.Element => {
+  const [taskName, setTaskName] = useState<string>("");
+  const dispatch = useDispatch();
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    addTask(); // Call addTask from props
+    const newTask = {
+      id: tasks.length + 1,
+      name: taskName,
+      completed: false,
+    };
+    dispatch(addTask(newTask));
+    setTaskName("");
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskName(event.target.value); // Update taskName state
-  };
-
-  const editTask = (index: number, newTaskName: string) => {
-    setTasks((prevTasks) => {
-      const updatedTasks = [...prevTasks];
-      updatedTasks[index].name = newTaskName; // Update the task name
-      return updatedTasks;
-    });
   };
 
   return (
@@ -67,16 +48,7 @@ const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            return (
-              <TaskList
-                key={task.id} // Use id for a unique key
-                index={index}
-                removeTask={removeTask}
-                setTasks={setTasks} // Pass toggle function
-                task={task}
-                editTask={editTask}
-              />
-            );
+            return <TaskList key={task.id} index={index} task={task} />;
           })
         ) : (
           <p>Seems lonely in here, what are you up to?</p>
