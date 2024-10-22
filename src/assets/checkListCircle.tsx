@@ -6,7 +6,6 @@ interface CheckListCircleProps extends React.SVGProps<SVGSVGElement> {
 
 export const CheckListCircle: React.FC<CheckListCircleProps> = ({
   completed,
-  ...props
 }) => {
   return (
     <svg
