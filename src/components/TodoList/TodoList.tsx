@@ -1,9 +1,9 @@
 import Section from "../Section/Section";
 import Header from "../Header/Header";
-import AddTask from "../AddTask/AddTask";
 import "../../styles/styles.css";
 import { RootState } from "../../State/store";
 import { useSelector } from "react-redux";
+import AddTaskContainer from "../AddTask/AddTaskContainer";
 
 function TodoList() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks); // Get tasks from Redux
@@ -17,7 +17,7 @@ function TodoList() {
         <Header />
         <div className="inside-container">
           <Section completedCount={completedCount} totalCount={totalCount} />
-          <AddTask />
+          <AddTaskContainer />
         </div>
       </div>
     </div>

@@ -1,15 +1,17 @@
 import "./AddTask.css";
 import addButton from "../../assets/add-button.svg";
-import TaskList from "../Task/TaskList/TaskList";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../../State/taskSlice";
-import { RootState } from "../../State/store";
+import TaskListContainer from "../Task/TaskList/TaskListContainer";
+import { Task } from "../../State/taskSlice";
 
-const AddTask = (): JSX.Element => {
+import { useState } from "react";
+
+interface AddTaskProps {
+  tasks: Task[];
+  addTask: (task: Task) => void;
+}
+
+const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
   const [taskName, setTaskName] = useState<string>("");
-  const dispatch = useDispatch();
-  const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
@@ -18,7 +20,7 @@ const AddTask = (): JSX.Element => {
       name: taskName,
       completed: false,
     };
-    dispatch(addTask(newTask));
+    addTask(newTask);
     setTaskName("");
   };
 
@@ -48,7 +50,9 @@ const AddTask = (): JSX.Element => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            return <TaskList key={task.id} index={index} task={task} />;
+            return (
+              <TaskListContainer key={task.id} index={index} task={task} />
+            );
           })
         ) : (
           <p>Seems lonely in here, what are you up to?</p>
