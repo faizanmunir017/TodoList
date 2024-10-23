@@ -37,13 +37,13 @@ function TaskList({ index, task }: TaskListProps) {
   const handleEditSubmit = () => {
     if (taskNameRef.current) {
       const newTaskName = taskNameRef.current.textContent || task.name;
-      dispatch(editTask({ index, newName: newTaskName })); // Dispatch editTask with the updated task name
+      dispatch(editTask({ index, newName: newTaskName }));
     }
     setIsEditing(false);
   };
 
   const handleToggleCompletion = () => {
-    dispatch(toggleTaskCompletion(index)); // Dispatch the toggleTaskCompletion action with the task index
+    dispatch(toggleTaskCompletion(index));
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLParagraphElement>) => {
