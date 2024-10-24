@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import AddTaskContainer from "../AddTask/AddTaskContainer";
 
 function TodoList() {
-  const tasks = useSelector((state: RootState) => state.tasks.tasks); // Get tasks from Redux
+  const tasks = useSelector((state: RootState) => state.tasks); // Get tasks from Redux
 
   const completedCount = tasks.filter((task) => task.completed).length;
   const totalCount = tasks.length;

@@ -1,7 +1,12 @@
 import "./AddTask.css";
 import addButton from "../../assets/add-button.svg";
 import TaskListContainer from "../Task/TaskList/TaskListContainer";
-import { Task } from "../../State/taskSlice";
+
+interface Task {
+  id: number;
+  name: string;
+  completed: boolean;
+}
 
 import { useState } from "react";
 

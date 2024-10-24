@@ -7,11 +7,11 @@ import {
   removeTask,
   editTask,
   toggleTaskCompletion,
-} from "../../../State/taskSlice";
+} from "../../../State/taskActions";
 
 const mapStateToProps = (state: RootState) => {
   return {
-    tasks: state.tasks.tasks,
+    tasks: state.tasks,
   };
 };
 
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onToggleTask: (index: number) => dispatch(toggleTaskCompletion(index)),
   onDeleteTask: (index: number) => dispatch(removeTask(index)),
   onEditTask: (index: number, newName: string) =>
-    dispatch(editTask({ index, newName })),
+    dispatch(editTask(index, newName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
