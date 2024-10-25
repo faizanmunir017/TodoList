@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 
 import TaskList from "./TaskList";
 import { RootState, AppDispatch } from "../../../State/store";
+import { bindActionCreators } from "redux";
 
 import {
   removeTask,
@@ -15,11 +16,14 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onToggleTask: (index: number) => dispatch(toggleTaskCompletion(index)),
-  onDeleteTask: (index: number) => dispatch(removeTask(index)),
-  onEditTask: (index: number, newName: string) =>
-    dispatch(editTask(index, newName)),
-});
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators(
+    {
+      onToggleTask: toggleTaskCompletion,
+      onDeleteTask: removeTask,
+      onEditTask: editTask,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
