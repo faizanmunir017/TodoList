@@ -34,9 +34,13 @@ function TaskList({
   const handleEditSubmit = () => {
     if (taskNameRef.current) {
       const newTaskName = taskNameRef.current.textContent || task.name;
+      if (newTaskName.length < 3) {
+        alert("Task name must be at least 3 characters long");
+        return;
+      }
       onEditTask(index, newTaskName);
+      setIsEditing(false);
     }
-    setIsEditing(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLParagraphElement>) => {
