@@ -16,7 +16,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: AppDispatch) =>
   bindActionCreators(
     {
       onToggleTask: toggleTaskCompletion,

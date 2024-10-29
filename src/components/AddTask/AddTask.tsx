@@ -11,8 +11,6 @@ interface Task {
   completed: boolean;
 }
 
-import { useState } from "react";
-
 interface AddTaskProps {
   tasks: Task[];
   addTask: (task: Task) => void;
@@ -46,7 +44,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       completed: false,
     };
     addTask(newTask);
-    reset(); // Reset the form after submission
+    reset();
   };
 
   return (

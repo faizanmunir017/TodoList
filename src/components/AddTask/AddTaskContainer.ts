@@ -9,7 +9,7 @@ const mapStateToProps = (state: RootState) => {
     tasks: state.tasks,
   };
 };
-const mapDispatchToProps = (dispatch: any) =>
+const mapDispatchToProps = (dispatch: AppDispatch) =>
   bindActionCreators(
     {
       addTask,

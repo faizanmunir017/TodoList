@@ -1,4 +1,4 @@
-import { takeEvery, put, call, select } from "redux-saga/effects";
+import { takeEvery, put, select } from "redux-saga/effects";
 import {
   ADD_TASK,
   REMOVE_TASK,
