@@ -1,8 +1,8 @@
 import "./Section.css";
 
 interface SectionProps {
-  completedCount: number; // Number of completed tasks
-  totalCount: number; // Total number of tasks
+  completedCount: number;
+  totalCount: number;
 }
 
 function Section({ completedCount, totalCount }: SectionProps) {
