@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { RootState, AppDispatch } from "../../State/store";
-import { addTask } from "../../State/taskActions";
+import { RootState, AppDispatch } from "State/store";
+import { addTask } from "State/taskActions";
 import AddTask from "./AddTask";
 import { bindActionCreators } from "redux";
 

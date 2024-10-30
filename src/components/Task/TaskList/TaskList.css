@@ -17,33 +17,9 @@ li {
 }
 
 p[contenteditable="true"]:focus {
-  outline: none; /* Remove any default outline */
-  border: 1px solid #ccc; /* Optional: Add a border for visual feedback */
+  outline: none;
+  border: 1px solid #ccc;
 }
-
-/* button {
-  appearance: auto;
-  text-rendering: auto;
-
-  letter-spacing: normal;
-  word-spacing: normal;
-  line-height: normal;
-  text-transform: none;
-  text-indent: 0px;
-  text-shadow: none;
-  display: inline-block;
-  text-align: center;
-  align-items: flex-start;
-  cursor: default;
-  box-sizing: border-box;
-  margin: 0em;
-  padding-block: 1px;
-  padding-inline: 6px;
-  border-width: 2px;
-  border-style: outset;
-  border-color: buttonborder;
-  border-image: initial;
-} */
 
 .todo_list {
   align-self: center;
@@ -81,17 +57,10 @@ p[contenteditable="true"]:focus {
   align-items: center;
 }
 
-/* .todo_items_right {
-  display: flex;
-  align-items: center;
-  background-color: #0d0d0d;
-  gap: 4px;
-} */
-
 .todo_items_right {
   display: flex;
   align-items: center;
-  background-color: transparent; /* Make sure this is applied */
+  background-color: transparent;
   gap: 4px;
 }
 
@@ -114,4 +83,30 @@ p[contenteditable="true"]:focus {
   width: 1px !important;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.edit-form {
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid #c2b39a;
+  font-size: 16px;
+  background-color: #0d0d0d;
+  color: #fff;
+}
+
+.edit-text {
+  background-color: black;
+  color: white;
+  width: 83%;
+}
+
+.save-button {
+  background-color: #88ab33;
+  color: white;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
 }

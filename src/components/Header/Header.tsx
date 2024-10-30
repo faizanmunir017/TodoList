@@ -1,4 +1,4 @@
-import todoLogo from "../../assets/todo-logo.svg"; // Adjust the number of "../" as necessary
+import todoLogo from "assets/todo-logo.svg"; // Adjust the number of "../" as necessary
 import "./Header.css";
 
 function Header() {

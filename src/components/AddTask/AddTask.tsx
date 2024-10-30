@@ -1,9 +1,9 @@
 import "./AddTask.css";
-import addButton from "../../assets/add-button.svg";
-import TaskListContainer from "../Task/TaskList/TaskListContainer";
+import addButton from "assets/add-button.svg";
+import TaskListContainer from "components/Task/TaskList/TaskListContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { schema } from "validation/form-validation";
 
 interface Task {
   id: number;
@@ -16,15 +16,6 @@ interface AddTaskProps {
   addTask: (task: Task) => void;
 }
 
-const schema = yup
-  .object({
-    taskName: yup
-      .string()
-      .required("Task name is required")
-      .min(3, "Task name must be at least 3 characters long"),
-  })
-  .required();
-
 const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
   const {
     register,
@@ -34,8 +25,6 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
   } = useForm<{ taskName: string }>({
     resolver: yupResolver(schema),
   });
-
-  // const [taskName, setTaskName] = useState<string>("");
 
   const onSubmit: SubmitHandler<{ taskName: string }> = (data) => {
     const newTask = {
@@ -55,8 +44,11 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
             type="text"
             id="todo"
             placeholder="Write your next task"
-            {...register("taskName")} // Register input with form
+            {...register("taskName")}
           />
+          {errors.taskName && (
+            <p className="error">{errors.taskName.message}</p>
+          )}
         </label>
         <button type="submit">
           <span className="visually-hidden">Submit</span>

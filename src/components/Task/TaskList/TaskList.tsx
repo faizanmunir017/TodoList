@@ -1,9 +1,12 @@
 import "./TaskList.css";
+import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "validation/form-validation";
 
-import { useState, useRef } from "react";
-import { CheckListCircle } from "../../../assets/checkListCircle";
-import EditIcon from "../../../assets/Edit-Icon";
-import DeleteButton from "../../../assets/Delete-Icon";
+import { CheckListCircle } from "assets/checkList-Icon";
+import EditIcon from "assets/Edit-Icon";
+import DeleteButton from "assets/Delete-Icon";
 
 interface TaskListProps {
   index: number;
@@ -11,6 +14,10 @@ interface TaskListProps {
   onToggleTask: (index: number) => void;
   onDeleteTask: (index: number) => void;
   onEditTask: (index: number, newName: string) => void;
+}
+
+interface FormData {
+  taskName: string;
 }
 
 function TaskList({
@@ -21,34 +28,21 @@ function TaskList({
   onEditTask,
 }: TaskListProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const taskNameRef = useRef<HTMLParagraphElement>(null);
 
-  const handleEdit = () => {
-    console.log("Edit button clicked");
-    setIsEditing(true);
-    setTimeout(() => {
-      taskNameRef.current?.focus();
-    }, 0);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+    defaultValues: { taskName: task.name },
+  });
 
-  const handleEditSubmit = () => {
-    if (taskNameRef.current) {
-      const newTaskName = taskNameRef.current.textContent || task.name;
-      if (newTaskName.length < 3) {
-        alert("Task name must be at least 3 characters long");
-        return;
-      }
-      onEditTask(index, newTaskName);
-      setIsEditing(false);
-    }
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLParagraphElement>) => {
-    if (event.key === "Enter") {
-      console.log("Enter Pressed");
-      event.preventDefault();
-      handleEditSubmit();
-    }
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    onEditTask(index, data.taskName);
+    setIsEditing(false);
+    reset({ taskName: data.taskName });
   };
 
   return (
@@ -63,25 +57,36 @@ function TaskList({
       >
         <CheckListCircle completed={task.completed} />
       </button>
-      <p
-        className="todo_items_left"
-        ref={taskNameRef}
-        contentEditable={isEditing}
-        suppressContentEditableWarning={true}
-        onKeyDown={handleKeyDown}
-      >
-        {task.name}
-      </p>
+
+      {isEditing ? (
+        <form onSubmit={handleSubmit(onSubmit)} className="edit-form">
+          <input
+            className="edit-text"
+            type="text"
+            {...register("taskName")}
+            defaultValue={task.name}
+            autoFocus
+          />
+
+          <button className="save-button" type="submit">
+            Save
+          </button>
+          {errors.taskName && (
+            <p className="error">{errors.taskName.message}</p>
+          )}
+        </form>
+      ) : (
+        <p onDoubleClick={() => setIsEditing(true)}>{task.name}</p>
+      )}
 
       <div className="todo_items_right">
-        <button onClick={handleEdit}>
+        <button onClick={() => setIsEditing(true)}>
           <span className="visually-hidden">Edit</span>
-          <EditIcon></EditIcon>
+          <EditIcon />
         </button>
         <button onClick={() => onDeleteTask(index)}>
           <span className="visually-hidden">Delete</span>
-
-          <DeleteButton></DeleteButton>
+          <DeleteButton />
         </button>
       </div>
     </li>

@@ -16,8 +16,8 @@ import {
   TOGGLE_TASK_STARTED,
   TOGGLE_TASK_SUCCESS,
   TOGGLE_TASK_FAILED,
-} from "../State/taskActions";
-import { Task } from "../State/taskReducers";
+} from "State/taskActions";
+import { Task } from "State/taskReducers";
 
 const selectTasks = (state: any) => state.tasks;
 
