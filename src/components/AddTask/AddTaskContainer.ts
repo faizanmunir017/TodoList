@@ -17,4 +17,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
+export const AddTaskContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddTask);

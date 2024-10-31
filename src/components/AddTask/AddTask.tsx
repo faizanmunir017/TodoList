@@ -1,6 +1,6 @@
 import "./AddTask.css";
 import addButton from "assets/add-button.svg";
-import TaskListContainer from "components/Task/TaskList/TaskListContainer";
+import { TaskListContainer } from "components/Task/TaskList/TaskListContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "validation/form-validation";
@@ -48,14 +48,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       completed: false,
     };
 
-    mutation.mutate(newTask, {
-      onSuccess: (data) => {
-        console.log("Task added:", data);
-      },
-      onError: (error) => {
-        console.error("Error adding task:", error);
-      },
-    });
+    mutation.mutate(newTask);
 
     addTask(newTask);
     reset();

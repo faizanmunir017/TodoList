@@ -22,4 +22,7 @@ const mapDispatchToProps = (dispatch: AppDispatch) =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export const TaskListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskList);

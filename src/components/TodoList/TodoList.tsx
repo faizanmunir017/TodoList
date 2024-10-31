@@ -3,7 +3,7 @@ import Header from "components/Header/Header";
 import "styles/styles.css";
 import { RootState } from "State/store";
 import { useSelector } from "react-redux";
-import AddTaskContainer from "components/AddTask/AddTaskContainer";
+import { AddTaskContainer } from "components/AddTask/AddTaskContainer";
 
 function TodoList() {
   const tasks = useSelector((state: RootState) => state.tasks); // Get tasks from Redux
