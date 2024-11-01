@@ -2,47 +2,27 @@ import "./AddTask.css";
 import addButton from "../../assets/add-button.svg";
 
 import TaskList from "../Task/TaskList/TaskList";
-import { useEffect, useState } from "react";
+import { tasksState, taskNameState } from "../../state/state";
+import { useHookstate } from "@hookstate/core";
 
-export type SetTask = React.Dispatch<
-  React.SetStateAction<{ id: number; name: string; completed: boolean }[]>
->;
+const AddTask = () => {
+  const tasks = useHookstate(tasksState);
+  const taskName = useHookstate(taskNameState);
 
-interface AddTaskProps {
-  tasks: { id: number; name: string; completed: boolean }[]; // Array of task objects
-  setTasks: SetTask;
-}
-
-const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
-  const [taskName, setTaskName] = useState<string>(""); // State for task input
-
-  const addTask = () => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      { id: prevTasks.length + 1, name: taskName, completed: false },
-    ]);
-    setTaskName("");
-  };
-
-  const removeTask = (index: number) => {
-    setTasks((prevTasks) => prevTasks.filter((_, i) => i !== index));
-  };
-
-  const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const addTask = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    addTask(); // Call addTask from props
+    tasks.merge([
+      {
+        id: tasks.length + 1,
+        name: taskName.get(),
+        completed: false,
+      },
+    ]);
+    taskName.set(""); // Clear the task input field after adding a task
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskName(event.target.value); // Update taskName state
-  };
-
-  const editTask = (index: number, newTaskName: string) => {
-    setTasks((prevTasks) => {
-      const updatedTasks = [...prevTasks];
-      updatedTasks[index].name = newTaskName; // Update the task name
-      return updatedTasks;
-    });
+    taskName.set(event.target.value); // Update task name input
   };
 
   return (
@@ -54,11 +34,11 @@ const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
             id="todo"
             placeholder="Write your next task"
             name="todo"
-            value={taskName} // Bind input value to taskName
+            value={taskName.get()} // Bind input value to taskName
             onChange={handleInputChange} // Handle input change
           />
         </label>
-        <button onClick={handleAdd}>
+        <button onClick={addTask}>
           <span className="visually-hidden">Submit</span>
           <img src={addButton} alt="add-button" width={32} height={32} />
         </button>
@@ -66,17 +46,8 @@ const AddTask = ({ tasks, setTasks }: AddTaskProps) => {
 
       <ol>
         {tasks.length > 0 ? (
-          tasks.map((task, index) => {
-            return (
-              <TaskList
-                key={task.id} // Use id for a unique key
-                index={index}
-                removeTask={removeTask}
-                setTasks={setTasks} // Pass toggle function
-                task={task}
-                editTask={editTask}
-              />
-            );
+          tasks.map((_, index) => {
+            return <TaskList index={index} />;
           })
         ) : (
           <p>Seems lonely in here, what are you up to?</p>
