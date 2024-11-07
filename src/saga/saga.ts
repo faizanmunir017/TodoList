@@ -24,6 +24,7 @@ const selectTasks = (state: any) => state.tasks;
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
     const response = yield call(axios.get, "http://localhost:5000/api/tasks");
+    console.log("heheheh: ", response.data);
     yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
   } catch (error) {
     yield put({ type: FETCH_TASKS_FAILED, error });

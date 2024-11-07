@@ -20,6 +20,7 @@ export const taskReducer = (state = initialState, action: any): TaskState => {
     case "REMOVE_TASK_SUCCESS":
     case "EDIT_TASK_SUCCESS":
     case "TOGGLE_TASK_SUCCESS":
+    case "FETCH_TASKS_SUCCESS":
       return {
         ...state,
         tasks: action.payload,

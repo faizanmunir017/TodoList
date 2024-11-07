@@ -24,25 +24,25 @@ export const addTask = (task: {
   name: string;
   completed: boolean;
 }) => ({
-  type: ADD_TASK_SUCCESS,
+  type: ADD_TASK_STARTED,
   payload: task,
 });
 
 export const removeTask = (index: number) => ({
-  type: REMOVE_TASK_SUCCESS,
+  type: REMOVE_TASK_STARTED,
   payload: index,
 });
 
 export const editTask = (index: number, newName: string) => ({
-  type: EDIT_TASK_SUCCESS,
+  type: EDIT_TASK_STARTED,
   payload: { index, newName },
 });
 
 export const toggleTaskCompletion = (index: number) => ({
-  type: TOGGLE_TASK_SUCCESS,
+  type: TOGGLE_TASK_STARTED,
   payload: index,
 });
 
-// export const fetchTasks = () => ({
-//   type: FETCH_TASKS_SUCCESS,
-// });
+export const fetchTasks = () => ({
+  type: FETCH_TASKS_STARTED,
+});

@@ -35,11 +35,11 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
     };
 
     try {
-      // const response = await axios.post(
-      //   "http://localhost:5000/api/tasks",
-      //   newTask
-      // );
-      addTask(newTask);
+      const response = await axios.post(
+        "http://localhost:5000/api/tasks",
+        newTask
+      );
+      addTask(response.data);
       reset();
     } catch (error) {
       console.error("Error adding task:", error);
@@ -69,9 +69,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            return (
-              <TaskListContainer key={task.id} index={index} task={task} />
-            );
+            return <TaskListContainer key={index} index={index} task={task} />;
           })
         ) : (
           <p>Seems lonely in here, what are you up to?</p>

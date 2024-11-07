@@ -6,9 +6,10 @@ import { bindActionCreators } from "redux";
 
 import { removeTask, editTask, toggleTaskCompletion } from "State/taskActions";
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
     tasks: state.tasks,
+    key: ownProps.key,
   };
 };
 

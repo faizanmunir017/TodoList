@@ -5,15 +5,15 @@ import { RootState } from "State/store";
 import { useSelector, useDispatch } from "react-redux";
 import AddTaskContainer from "components/AddTask/AddTaskContainer";
 import { useEffect } from "react";
-// import { fetchTasks } from "State/taskActions";
+import { fetchTasks } from "State/taskActions";
 
 function TodoList() {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks);
 
-  // useEffect(() => {
-  //   dispatch(fetchTasks());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const completedCount = tasks.filter((task) => task.completed).length;
   const totalCount = tasks.length;

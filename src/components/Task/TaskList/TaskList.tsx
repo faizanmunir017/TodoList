@@ -9,6 +9,7 @@ import EditIcon from "assets/Edit-Icon";
 import DeleteButton from "assets/Delete-Icon";
 
 interface TaskListProps {
+  key: string;
   index: number;
   task: { id: number; name: string; completed: boolean };
   onToggleTask: (index: number) => void;
@@ -21,6 +22,7 @@ interface FormData {
 }
 
 function TaskList({
+  key,
   index,
   task,
   onToggleTask,
@@ -46,7 +48,7 @@ function TaskList({
   };
 
   return (
-    <li className="todo_item">
+    <li className="todo_item" key={key}>
       <button
         className="todo_items_left"
         onClick={(e) => {
