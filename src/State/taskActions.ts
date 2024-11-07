@@ -34,9 +34,9 @@ export const editTask = (index: number, newName: string) => ({
   payload: { index, newName },
 });
 
-export const toggleTaskCompletion = (index: number) => ({
+export const toggleTaskCompletion = (taskId: string) => ({
   type: TOGGLE_TASK_STARTED,
-  payload: index,
+  payload: taskId,
 });
 
 export const fetchTasks = () => ({

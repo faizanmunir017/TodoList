@@ -11,7 +11,7 @@ import DeleteButton from "assets/Delete-Icon";
 interface TaskListProps {
   index: number;
   task: { _id: string; name: string; completed: boolean };
-  onToggleTask: (index: number) => void;
+  onToggleTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
   onEditTask: (index: number, newName: string) => void;
 }
@@ -51,7 +51,8 @@ function TaskList({
         className="todo_items_left"
         onClick={(e) => {
           e.preventDefault();
-          onToggleTask(index);
+          console.log("TaskList toggle task Id", task._id);
+          onToggleTask(task._id);
         }}
         tabIndex={isEditing ? -1 : 0}
       >

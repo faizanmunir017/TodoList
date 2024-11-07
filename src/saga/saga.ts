@@ -72,12 +72,22 @@ function* handleEditTask(action: any) {
   }
 }
 
-function* handleToggleTask(action: any) {
+function* handleToggleTask(action: any): Generator<Effect, void, any> {
   try {
-    const tasks: Task[] = yield select(selectTasks);
-    const updatedTasks = tasks.map((task, index) =>
-      index === action.payload ? { ...task, completed: !task.completed } : task
+    const { taskId } = action.payload;
+    console.log("TaskID in saga", taskId);
+    const response = yield call(
+      axios.patch,
+      `http://localhost:5000/api/tasks/${taskId}/toggle`
     );
+
+    const tasks = yield select(selectTasks);
+    const updatedTasks = tasks.map((task: Task) =>
+      task._id === taskId
+        ? { ...task, completed: response.data.completed }
+        : task
+    );
+
     yield put({ type: TOGGLE_TASK_SUCCESS, payload: updatedTasks });
   } catch (error) {
     yield put({ type: TOGGLE_TASK_FAILED, error });
