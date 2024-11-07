@@ -1,5 +1,3 @@
-//initial set up of store
-
 import { applyMiddleware, createStore } from "redux";
 import { taskReducer } from "./taskReducers";
 import createSagaMiddleware from "redux-saga";

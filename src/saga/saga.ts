@@ -1,9 +1,5 @@
-import { takeEvery, put, select } from "redux-saga/effects";
+import { takeEvery, call, put, select, Effect } from "redux-saga/effects";
 import {
-  ADD_TASK,
-  REMOVE_TASK,
-  EDIT_TASK,
-  TOGGLE_TASK_COMPLETION,
   ADD_TASK_STARTED,
   ADD_TASK_SUCCESS,
   ADD_TASK_FAILED,
@@ -16,15 +12,26 @@ import {
   TOGGLE_TASK_STARTED,
   TOGGLE_TASK_SUCCESS,
   TOGGLE_TASK_FAILED,
+  FETCH_TASKS_STARTED,
+  FETCH_TASKS_SUCCESS,
+  FETCH_TASKS_FAILED,
 } from "State/taskActions";
 import { Task } from "State/taskReducers";
+import axios from "axios";
 
 const selectTasks = (state: any) => state.tasks;
 
-// Add task saga
+function* handleFetchTasks(action: any): Generator<Effect, void, any> {
+  try {
+    const response = yield call(axios.get, "http://localhost:5000/api/tasks");
+    yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
+  } catch (error) {
+    yield put({ type: FETCH_TASKS_FAILED, error });
+  }
+}
+
 function* handleAddTask(action: any) {
   try {
-    yield put({ type: ADD_TASK_STARTED });
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = [...tasks, action.payload];
     yield put({ type: ADD_TASK_SUCCESS, payload: updatedTasks });
@@ -35,7 +42,6 @@ function* handleAddTask(action: any) {
 
 function* handleRemoveTask(action: any) {
   try {
-    yield put({ type: REMOVE_TASK_STARTED });
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = tasks.filter((_, index) => index !== action.payload);
     yield put({ type: REMOVE_TASK_SUCCESS, payload: updatedTasks });
@@ -44,10 +50,8 @@ function* handleRemoveTask(action: any) {
   }
 }
 
-// Edit task saga
 function* handleEditTask(action: any) {
   try {
-    yield put({ type: EDIT_TASK_STARTED });
     const tasks: Task[] = yield select(selectTasks);
     const { index, newName } = action.payload;
     const updatedTasks = tasks.map((task, i) =>
@@ -59,10 +63,8 @@ function* handleEditTask(action: any) {
   }
 }
 
-// Toggle task completion saga
 function* handleToggleTask(action: any) {
   try {
-    yield put({ type: TOGGLE_TASK_STARTED });
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = tasks.map((task, index) =>
       index === action.payload ? { ...task, completed: !task.completed } : task
@@ -74,8 +76,9 @@ function* handleToggleTask(action: any) {
 }
 
 export default function* rootSaga() {
-  yield takeEvery(ADD_TASK, handleAddTask);
-  yield takeEvery(REMOVE_TASK, handleRemoveTask);
-  yield takeEvery(EDIT_TASK, handleEditTask);
-  yield takeEvery(TOGGLE_TASK_COMPLETION, handleToggleTask);
+  yield takeEvery(FETCH_TASKS_STARTED, handleFetchTasks);
+  yield takeEvery(ADD_TASK_STARTED, handleAddTask);
+  yield takeEvery(REMOVE_TASK_STARTED, handleRemoveTask);
+  yield takeEvery(EDIT_TASK_STARTED, handleEditTask);
+  yield takeEvery(TOGGLE_TASK_STARTED, handleToggleTask);
 }

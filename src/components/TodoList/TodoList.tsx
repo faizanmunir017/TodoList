@@ -2,11 +2,18 @@ import Section from "components/Section/Section";
 import Header from "components/Header/Header";
 import "styles/styles.css";
 import { RootState } from "State/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AddTaskContainer from "components/AddTask/AddTaskContainer";
+import { useEffect } from "react";
+// import { fetchTasks } from "State/taskActions";
 
 function TodoList() {
-  const tasks = useSelector((state: RootState) => state.tasks); // Get tasks from Redux
+  const dispatch = useDispatch();
+  const tasks = useSelector((state: RootState) => state.tasks);
+
+  // useEffect(() => {
+  //   dispatch(fetchTasks());
+  // }, [dispatch]);
 
   const completedCount = tasks.filter((task) => task.completed).length;
   const totalCount = tasks.length;
