@@ -7,7 +7,7 @@ import { schema } from "validation/form-validation";
 import axios from "axios";
 
 export interface Task {
-  id: number;
+  _id?: string;
   name: string;
   completed: boolean;
 }
@@ -29,21 +29,12 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
 
   const onSubmit: SubmitHandler<{ taskName: string }> = async (data) => {
     const newTask = {
-      id: tasks.length + 1,
       name: data.taskName,
       completed: false,
     };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/tasks",
-        newTask
-      );
-      addTask(response.data);
-      reset();
-    } catch (error) {
-      console.error("Error adding task:", error);
-    }
+    addTask(newTask);
+    reset();
   };
 
   return (
@@ -69,7 +60,10 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            return <TaskListContainer key={index} index={index} task={task} />;
+            console.log("hehehe: ", task._id);
+            return (
+              <TaskListContainer key={task._id} index={index} task={task} />
+            );
           })
         ) : (
           <p>Seems lonely in here, what are you up to?</p>

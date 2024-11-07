@@ -19,18 +19,14 @@ export const FETCH_TASKS_STARTED = "FETCH_TASKS_STARTED";
 export const FETCH_TASKS_SUCCESS = "FETCH_TASKS_SUCCESS";
 export const FETCH_TASKS_FAILED = "FETCH_TASKS_FAILED";
 
-export const addTask = (task: {
-  id: number;
-  name: string;
-  completed: boolean;
-}) => ({
+export const addTask = (task: { name: string; completed: boolean }) => ({
   type: ADD_TASK_STARTED,
   payload: task,
 });
 
-export const removeTask = (index: number) => ({
+export const removeTask = (taskId: string) => ({
   type: REMOVE_TASK_STARTED,
-  payload: index,
+  payload: taskId,
 });
 
 export const editTask = (index: number, newName: string) => ({

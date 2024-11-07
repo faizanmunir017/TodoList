@@ -9,11 +9,10 @@ import EditIcon from "assets/Edit-Icon";
 import DeleteButton from "assets/Delete-Icon";
 
 interface TaskListProps {
-  key: string;
   index: number;
-  task: { id: number; name: string; completed: boolean };
+  task: { _id: string; name: string; completed: boolean };
   onToggleTask: (index: number) => void;
-  onDeleteTask: (index: number) => void;
+  onDeleteTask: (taskId: string) => void;
   onEditTask: (index: number, newName: string) => void;
 }
 
@@ -22,7 +21,6 @@ interface FormData {
 }
 
 function TaskList({
-  key,
   index,
   task,
   onToggleTask,
@@ -48,7 +46,7 @@ function TaskList({
   };
 
   return (
-    <li className="todo_item" key={key}>
+    <li className="todo_item">
       <button
         className="todo_items_left"
         onClick={(e) => {
@@ -86,7 +84,7 @@ function TaskList({
           <span className="visually-hidden">Edit</span>
           <EditIcon />
         </button>
-        <button onClick={() => onDeleteTask(index)}>
+        <button onClick={() => onDeleteTask(task._id)}>
           <span className="visually-hidden">Delete</span>
           <DeleteButton />
         </button>

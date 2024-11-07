@@ -18,24 +18,29 @@ import {
 } from "State/taskActions";
 import { Task } from "State/taskReducers";
 import axios from "axios";
+import { act } from "react";
 
 const selectTasks = (state: any) => state.tasks;
 
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
     const response = yield call(axios.get, "http://localhost:5000/api/tasks");
-    console.log("heheheh: ", response.data);
+
     yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
   } catch (error) {
     yield put({ type: FETCH_TASKS_FAILED, error });
   }
 }
 
-function* handleAddTask(action: any) {
+function* handleAddTask(action: any): Generator<Effect, void, any> {
   try {
-    const tasks: Task[] = yield select(selectTasks);
-    const updatedTasks = [...tasks, action.payload];
-    yield put({ type: ADD_TASK_SUCCESS, payload: updatedTasks });
+    const response = yield call(
+      axios.post,
+      "http://localhost:5000/api/tasks",
+      action.payload
+    );
+
+    yield put({ type: ADD_TASK_SUCCESS, payload: response.data });
   } catch (error) {
     yield put({ type: ADD_TASK_FAILED, error });
   }
@@ -43,8 +48,11 @@ function* handleAddTask(action: any) {
 
 function* handleRemoveTask(action: any) {
   try {
+    const taskId = action.payload;
+    yield call(axios.delete, `http://localhost:5000/api/tasks/${taskId}`);
+
     const tasks: Task[] = yield select(selectTasks);
-    const updatedTasks = tasks.filter((_, index) => index !== action.payload);
+    const updatedTasks = tasks.filter((task) => task._id !== taskId);
     yield put({ type: REMOVE_TASK_SUCCESS, payload: updatedTasks });
   } catch (error) {
     yield put({ type: REMOVE_TASK_FAILED, error });
