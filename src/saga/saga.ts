@@ -17,15 +17,17 @@ import {
   FETCH_TASKS_FAILED,
 } from "State/taskActions";
 import { Task } from "State/taskReducers";
+// import "dotenv/config";
 import axios from "axios";
-import { act } from "react";
+
+const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
+console.log(BASE_URL);
 
 const selectTasks = (state: any) => state.tasks;
 
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
-    const response = yield call(axios.get, "http://localhost:5000/api/tasks");
-
+    const response = yield call(axios.get, `${BASE_URL}/api/tasks`);
     yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
   } catch (error) {
     yield put({ type: FETCH_TASKS_FAILED, error });
@@ -36,7 +38,7 @@ function* handleAddTask(action: any): Generator<Effect, void, any> {
   try {
     const response = yield call(
       axios.post,
-      "http://localhost:5000/api/tasks",
+      `${BASE_URL}/api/tasks`,
       action.payload
     );
 
@@ -49,7 +51,7 @@ function* handleAddTask(action: any): Generator<Effect, void, any> {
 function* handleRemoveTask(action: any) {
   try {
     const taskId = action.payload;
-    yield call(axios.delete, `http://localhost:5000/api/tasks/${taskId}`);
+    yield call(axios.delete, `${BASE_URL}/api/tasks/${taskId}`);
 
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = tasks.filter((task) => task._id !== taskId);
@@ -65,8 +67,10 @@ function* handleEditTask(action: any): Generator<Effect, void, any> {
     console.log("TaskID in editSaga", taskId);
     const response = yield call(
       axios.patch,
-      `http://localhost:5000/api/tasks/${taskId}/edit`,
-      { newName }
+      `${BASE_URL}/api/tasks/${taskId}/edit`,
+      {
+        newName,
+      }
     );
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = tasks.map((task) =>
@@ -85,7 +89,7 @@ function* handleToggleTask(action: any): Generator<Effect, void, any> {
 
     const response = yield call(
       axios.patch,
-      `http://localhost:5000/api/tasks/${taskId}/toggle`
+      `${BASE_URL}/api/tasks/${taskId}/toggle`
     );
 
     const tasks = yield select(selectTasks);

@@ -54,7 +54,6 @@ function TaskList({
           // console.log("TaskList toggle task Id", task._id);
           onToggleTask(task._id);
         }}
-        tabIndex={isEditing ? -1 : 0}
       >
         <CheckListCircle completed={task.completed} />
       </button>
@@ -77,7 +76,7 @@ function TaskList({
           )}
         </form>
       ) : (
-        <p onDoubleClick={() => setIsEditing(true)}>{task.name}</p>
+        <p>{task.name}</p>
       )}
 
       <div className="todo_items_right">
