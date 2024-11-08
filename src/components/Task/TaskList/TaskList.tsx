@@ -13,7 +13,7 @@ interface TaskListProps {
   task: { _id: string; name: string; completed: boolean };
   onToggleTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
-  onEditTask: (index: number, newName: string) => void;
+  onEditTask: (taskId: string, newName: string) => void;
 }
 
 interface FormData {
@@ -40,7 +40,7 @@ function TaskList({
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    onEditTask(index, data.taskName);
+    onEditTask(task._id, data.taskName);
     setIsEditing(false);
     reset({ taskName: data.taskName });
   };
@@ -51,7 +51,7 @@ function TaskList({
         className="todo_items_left"
         onClick={(e) => {
           e.preventDefault();
-          console.log("TaskList toggle task Id", task._id);
+          // console.log("TaskList toggle task Id", task._id);
           onToggleTask(task._id);
         }}
         tabIndex={isEditing ? -1 : 0}

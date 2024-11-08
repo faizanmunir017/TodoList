@@ -22,9 +22,16 @@ export const taskReducer = (state = initialState, action: any): TaskState => {
         tasks: [...state.tasks, action.payload], // Append the new task
       };
 
+    case "TOGGLE_TASK_SUCCESS":
+      console.log("toggle task Redcuer: ", action.payload);
+      return {
+        ...state,
+        tasks: action.payload,
+      };
+
     case "REMOVE_TASK_SUCCESS":
     case "EDIT_TASK_SUCCESS":
-    case "TOGGLE_TASK_SUCCESS":
+
     case "FETCH_TASKS_SUCCESS":
       return {
         ...state,

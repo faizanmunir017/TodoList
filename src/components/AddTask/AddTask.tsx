@@ -60,7 +60,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            console.log("hehehe: ", task._id);
+            // console.log("hehehe: ", task._id);
             return (
               <TaskListContainer key={task._id} index={index} task={task} />
             );

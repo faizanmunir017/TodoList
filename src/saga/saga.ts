@@ -59,23 +59,30 @@ function* handleRemoveTask(action: any) {
   }
 }
 
-function* handleEditTask(action: any) {
+function* handleEditTask(action: any): Generator<Effect, void, any> {
   try {
+    const { taskId, newName } = action.payload;
+    console.log("TaskID in editSaga", taskId);
+    const response = yield call(
+      axios.patch,
+      `http://localhost:5000/api/tasks/${taskId}/edit`,
+      { newName }
+    );
     const tasks: Task[] = yield select(selectTasks);
-    const { index, newName } = action.payload;
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, name: newName } : task
+    const updatedTasks = tasks.map((task) =>
+      task._id === taskId ? { ...task, name: newName } : task
     );
     yield put({ type: EDIT_TASK_SUCCESS, payload: updatedTasks });
   } catch (error) {
+    console.log("Saga error");
     yield put({ type: EDIT_TASK_FAILED, error });
   }
 }
 
 function* handleToggleTask(action: any): Generator<Effect, void, any> {
   try {
-    const { taskId } = action.payload;
-    console.log("TaskID in saga", taskId);
+    const taskId = action.payload;
+
     const response = yield call(
       axios.patch,
       `http://localhost:5000/api/tasks/${taskId}/toggle`
