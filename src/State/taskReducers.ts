@@ -13,13 +13,11 @@ const initialState: TaskState = {
 };
 
 export const taskReducer = (state = initialState, action: any): TaskState => {
-  // console.log("Action:", action);
-  // console.log("State:", state);
   switch (action.type) {
     case "ADD_TASK_SUCCESS":
       return {
         ...state,
-        tasks: [...state.tasks, action.payload], // Append the new task
+        tasks: [...state.tasks, action.payload],
       };
 
     case "TOGGLE_TASK_SUCCESS":

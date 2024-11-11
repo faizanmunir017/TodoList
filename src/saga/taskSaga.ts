@@ -17,7 +17,7 @@ import {
   FETCH_TASKS_FAILED,
 } from "State/taskActions";
 import { Task } from "State/taskReducers";
-// import "dotenv/config";
+
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
@@ -105,7 +105,7 @@ function* handleToggleTask(action: any): Generator<Effect, void, any> {
   }
 }
 
-export default function* rootSaga() {
+export default function* taskSaga() {
   yield takeEvery(FETCH_TASKS_STARTED, handleFetchTasks);
   yield takeEvery(ADD_TASK_STARTED, handleAddTask);
   yield takeEvery(REMOVE_TASK_STARTED, handleRemoveTask);
