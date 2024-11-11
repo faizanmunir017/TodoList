@@ -17,6 +17,12 @@ export const userReducer = (state = initialState, action: any): userState => {
         user: action.payload,
       };
 
+    case "USER_LOGIN_SUCESS":
+      return {
+        ...state,
+        user: action.payload,
+      };
+
     default:
       return state;
   }

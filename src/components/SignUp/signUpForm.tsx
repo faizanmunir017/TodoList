@@ -26,8 +26,11 @@ const SignUpForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    const Authentication = false;
     const { email, password } = data;
-    dispatch(registerUser({ email, password }));
+    dispatch(
+      registerUser({ email, password, isAuthenticated: Authentication })
+    );
   };
 
   return (
