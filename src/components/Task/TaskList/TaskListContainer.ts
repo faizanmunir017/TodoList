@@ -8,7 +8,7 @@ import { removeTask, editTask, toggleTaskCompletion } from "State/taskActions";
 
 const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
-    tasks: state.tasks,
+    tasks: state.tasks.tasks,
     key: ownProps.key,
   };
 };

@@ -9,7 +9,7 @@ import { fetchTasks } from "State/taskActions";
 
 function TodoList() {
   const dispatch = useDispatch();
-  const tasks = useSelector((state: RootState) => state.tasks);
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   useEffect(() => {
     dispatch(fetchTasks());

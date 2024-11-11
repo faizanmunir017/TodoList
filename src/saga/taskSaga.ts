@@ -21,15 +21,17 @@ import { Task } from "State/taskReducers";
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
-console.log(BASE_URL);
+console.log("base url:", BASE_URL);
 
-const selectTasks = (state: any) => state.tasks;
+const selectTasks = (state: any) => state.tasks.tasks;
 
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
     const response = yield call(axios.get, `${BASE_URL}/api/tasks`);
+    console.log("in fetch");
     yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
   } catch (error) {
+    console.log("Error name", error);
     yield put({ type: FETCH_TASKS_FAILED, error });
   }
 }
@@ -106,6 +108,7 @@ function* handleToggleTask(action: any): Generator<Effect, void, any> {
 }
 
 export default function* taskSaga() {
+  console.log("in Saga Take every body");
   yield takeEvery(FETCH_TASKS_STARTED, handleFetchTasks);
   yield takeEvery(ADD_TASK_STARTED, handleAddTask);
   yield takeEvery(REMOVE_TASK_STARTED, handleRemoveTask);

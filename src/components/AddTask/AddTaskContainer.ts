@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 
 const mapStateToProps = (state: RootState) => {
   return {
-    tasks: state.tasks,
+    tasks: state.tasks.tasks,
   };
 };
 const mapDispatchToProps = (dispatch: AppDispatch) =>
