@@ -3,8 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validation/loginValidation";
 import { useDispatch } from "react-redux";
-import "./LoginForm.css";
+
 import { loginUser } from "State/userActions";
+import { Link } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -47,6 +48,12 @@ const LoginForm: React.FC = () => {
       <button type="submit" disabled={!isValid}>
         Submit
       </button>
+
+      <div>
+        <p>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      </div>
     </form>
   );
 };

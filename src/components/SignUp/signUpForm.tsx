@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "validation/signupValidation";
 import { registerUser } from "State/userActions";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import "./SignUpForm.css";
 
 interface FormData {
@@ -66,6 +67,11 @@ const SignUpForm: React.FC = () => {
       <button type="submit" disabled={!isValid}>
         Submit
       </button>
+      <div>
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
     </form>
   );
 };

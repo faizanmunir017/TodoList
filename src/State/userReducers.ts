@@ -4,7 +4,6 @@ interface userState {
   user: User | null;
 }
 
-//setting up initial user State
 const initialState: userState = {
   user: null,
 };
