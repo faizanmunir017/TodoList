@@ -2,7 +2,9 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validation/loginValidation";
+import { useDispatch } from "react-redux";
 import "./LoginForm.css";
+import { loginUser } from "State/userActions";
 
 interface FormData {
   email: string;
@@ -10,6 +12,7 @@ interface FormData {
 }
 
 const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -21,6 +24,10 @@ const LoginForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
+    const { email, password } = data;
+
+    dispatch(loginUser({ email, password }));
+    console.log("Login successfull :");
   };
 
   return (

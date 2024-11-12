@@ -3,7 +3,7 @@ import SignUpForm from "components/SignUp/signUpForm";
 import TodoList from "components/TodoList/TodoList";
 
 function App() {
-  return <TodoList></TodoList>;
+  return <LoginForm></LoginForm>;
 }
 
 export default App;

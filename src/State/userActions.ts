@@ -7,9 +7,10 @@ export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 
 export interface User {
+  _id?: string;
   email: string;
   password: string;
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
 }
 
 export const registerUser = (user: User) => ({

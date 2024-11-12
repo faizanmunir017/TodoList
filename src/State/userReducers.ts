@@ -1,12 +1,12 @@
 import { User } from "./userActions";
 
 interface userState {
-  user: User[];
+  user: User | null;
 }
 
 //setting up initial user State
 const initialState: userState = {
-  user: [],
+  user: null,
 };
 
 export const userReducer = (state = initialState, action: any): userState => {
@@ -17,7 +17,7 @@ export const userReducer = (state = initialState, action: any): userState => {
         user: action.payload,
       };
 
-    case "USER_LOGIN_SUCESS":
+    case "USER_LOGIN_SUCCESS":
       return {
         ...state,
         user: action.payload,

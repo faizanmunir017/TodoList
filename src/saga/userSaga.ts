@@ -11,6 +11,10 @@ import {
 
 const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
 
+const selectUsers = (state: any) => {
+  state.user.user;
+};
+
 function* registerUser(action: any): Generator<Effect, void, any> {
   try {
     yield call(axios.post, `${BASE_URL}/api/register`, action.payload);
@@ -22,7 +26,19 @@ function* registerUser(action: any): Generator<Effect, void, any> {
 
 function* loginUser(action: any): Generator<Effect, void, any> {
   try {
-    yield call(axios.post, `${BASE_URL}/api/login`, action.payload);
+    const response = yield call(
+      axios.post,
+      `${BASE_URL}/api/login`,
+      action.payload
+    );
+
+    const { token, user } = response.data;
+    console.log("user: ", user);
+
+    yield put({
+      type: USER_LOGIN_SUCCESS,
+      payload: { ...user, isAuthenticated: true, token },
+    });
   } catch (error) {
     yield put({ type: USER_LOGIN_FAILED, error });
   }
