@@ -39,13 +39,6 @@ const LoginForm: React.FC = () => {
       console.log("User is authenticated, navigating to todos...");
       navigate("/todos");
     }
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log("User is authenticated, navigating to todos...");
-      navigate("/todos");
-    }
   }, [isAuthenticated, navigate]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
