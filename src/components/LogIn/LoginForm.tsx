@@ -5,7 +5,8 @@ import { schema } from "../../validation/loginValidation";
 import { useDispatch } from "react-redux";
 
 import { loginUser } from "State/userActions";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -14,6 +15,7 @@ interface FormData {
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,6 +31,7 @@ const LoginForm: React.FC = () => {
 
     dispatch(loginUser({ email, password }));
     console.log("Login successfull :");
+    navigate("/todos");
   };
 
   return (

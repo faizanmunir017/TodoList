@@ -24,11 +24,18 @@ const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
 console.log("base url:", BASE_URL);
 
 const selectTasks = (state: any) => state.tasks.tasks;
+const selectToken = (state: any) => state.user.token;
 
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
-    const response = yield call(axios.get, `${BASE_URL}/api/tasks`);
-    console.log("in fetch");
+    const token = yield select(selectToken);
+    console.log("token in fetch tasks: ", token);
+    const response = yield call(axios.get, `${BASE_URL}/api/tasks`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
   } catch (error) {
     console.log("Error name", error);
@@ -38,10 +45,16 @@ function* handleFetchTasks(action: any): Generator<Effect, void, any> {
 
 function* handleAddTask(action: any): Generator<Effect, void, any> {
   try {
+    const token = yield select((state) => state.user.token);
     const response = yield call(
       axios.post,
       `${BASE_URL}/api/tasks`,
-      action.payload
+      action.payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     yield put({ type: ADD_TASK_SUCCESS, payload: response.data });

@@ -33,13 +33,15 @@ function* loginUser(action: any): Generator<Effect, void, any> {
     );
 
     const { token, user } = response.data;
-    console.log("user: ", user);
+    console.log("user in user saga: ", user);
+    console.log("token in user Saga: ", token);
 
     yield put({
       type: USER_LOGIN_SUCCESS,
-      payload: { ...user, isAuthenticated: true, token },
+      payload: { user: { ...user, isAuthenticated: true }, token },
     });
   } catch (error) {
+    console.log("Error in login saga:", error);
     yield put({ type: USER_LOGIN_FAILED, error });
   }
 }

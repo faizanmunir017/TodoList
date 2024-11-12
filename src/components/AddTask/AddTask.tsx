@@ -1,4 +1,4 @@
-import "./AddTask.css";
+import styles from "./AddTask.module.css";
 import addButton from "assets/add-button.svg";
 import TaskListContainer from "components/Task/TaskList/TaskListContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -39,7 +39,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="todo">
           <input
             type="text"
@@ -48,11 +48,11 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
             {...register("taskName")}
           />
           {errors.taskName && (
-            <p className="error">{errors.taskName.message}</p>
+            <p className={styles.error}>{errors.taskName.message}</p>
           )}
         </label>
         <button type="submit">
-          <span className="visually-hidden">Submit</span>
+          <span className={styles.visually_hidden}>Submit</span>
           <img src={addButton} alt="add-button" width={32} height={32} />
         </button>
       </form>

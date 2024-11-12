@@ -1,4 +1,4 @@
-import "./TaskList.css";
+import styles from "./TaskList.module.css";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -46,9 +46,9 @@ function TaskList({
   };
 
   return (
-    <li className="todo_item">
+    <li className={styles.todo_item}>
       <button
-        className="todo_items_left"
+        className={styles.todo_items_left}
         onClick={(e) => {
           e.preventDefault();
           // console.log("TaskList toggle task Id", task._id);
@@ -59,7 +59,7 @@ function TaskList({
       </button>
 
       {isEditing ? (
-        <form onSubmit={handleSubmit(onSubmit)} className="edit-form">
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.edit_form}>
           <input
             className="edit-text"
             type="text"
@@ -68,24 +68,24 @@ function TaskList({
             autoFocus
           />
 
-          <button className="save-button" type="submit">
+          <button className={styles.save_button} type="submit">
             Save
           </button>
           {errors.taskName && (
-            <p className="error">{errors.taskName.message}</p>
+            <p className={styles.error}>{errors.taskName.message}</p>
           )}
         </form>
       ) : (
         <p>{task.name}</p>
       )}
 
-      <div className="todo_items_right">
+      <div className={styles.todo_items_right}>
         <button onClick={() => setIsEditing(true)}>
-          <span className="visually-hidden">Edit</span>
+          <span className={styles.visually_hidden}>Edit</span>
           <EditIcon />
         </button>
         <button onClick={() => onDeleteTask(task._id)}>
-          <span className="visually-hidden">Delete</span>
+          <span className={styles.visually_hidden}>Delete</span>
           <DeleteButton />
         </button>
       </div>
