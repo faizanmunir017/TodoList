@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validation/loginValidation";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "State/store";
 
 import { loginUser } from "State/userActions";
 
@@ -25,13 +26,36 @@ const LoginForm: React.FC = () => {
     mode: "onChange",
   });
 
+  // const { isAuthenticated } = useSelector(
+  //   (state: RootState) => state.user.user
+  // );
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user.user?.isAuthenticated ?? false
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("User is authenticated, navigating to todos...");
+      navigate("/todos");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("User is authenticated, navigating to todos...");
+      navigate("/todos");
+    }
+  }, [isAuthenticated, navigate]);
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     const { email, password } = data;
 
     dispatch(loginUser({ email, password }));
     console.log("Login successfull :");
-    navigate("/todos");
+
+    // navigate("/todos");
   };
 
   return (

@@ -24,13 +24,19 @@ function* registerUser(action: any): Generator<Effect, void, any> {
   }
 }
 
-function* loginUser(action: any): Generator<Effect, void, any> {
+function* loginUser(action: any): Generator<Effect, void, any> {  
   try {
     const response = yield call(
       axios.post,
       `${BASE_URL}/api/login`,
       action.payload
     );
+
+    if (response.code != null && response.code != "200") {
+      console.log("error")
+    }
+
+    console.log("api response: ", response.data)
 
     const { token, user } = response.data;
     console.log("user in user saga: ", user);
