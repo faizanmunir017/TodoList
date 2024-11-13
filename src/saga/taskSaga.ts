@@ -1,27 +1,16 @@
 import { takeEvery, call, put, select, Effect } from "redux-saga/effects";
 import {
-  ADD_TASK_STARTED,
-  ADD_TASK_SUCCESS,
-  ADD_TASK_FAILED,
-  REMOVE_TASK_STARTED,
-  REMOVE_TASK_SUCCESS,
-  REMOVE_TASK_FAILED,
-  EDIT_TASK_STARTED,
-  EDIT_TASK_SUCCESS,
-  EDIT_TASK_FAILED,
-  TOGGLE_TASK_STARTED,
-  TOGGLE_TASK_SUCCESS,
-  TOGGLE_TASK_FAILED,
-  FETCH_TASKS_STARTED,
-  FETCH_TASKS_SUCCESS,
-  FETCH_TASKS_FAILED,
-} from "State/taskActions";
+  ADD_TASK,
+  REMOVE_TASK,
+  EDIT_TASK,
+  TOGGLE_TASK,
+  FETCH_TASKS,
+} from "State/taskActionTypes";
 import { Task } from "State/taskReducers";
 
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
-console.log("base url:", BASE_URL);
 
 const selectTasks = (state: any) => state.tasks.tasks;
 const selectToken = (state: any) => state.user.token;
@@ -29,17 +18,17 @@ const selectToken = (state: any) => state.user.token;
 function* handleFetchTasks(action: any): Generator<Effect, void, any> {
   try {
     const token = yield select(selectToken);
-    console.log("token in fetch tasks: ", token);
+
     const response = yield call(axios.get, `${BASE_URL}/api/tasks`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    yield put({ type: FETCH_TASKS_SUCCESS, payload: response.data });
+    yield put({ type: FETCH_TASKS.SUCCESS, payload: response.data });
   } catch (error) {
     console.log("Error name", error);
-    yield put({ type: FETCH_TASKS_FAILED, error });
+    yield put({ type: FETCH_TASKS.FAILED, error });
   }
 }
 
@@ -57,9 +46,9 @@ function* handleAddTask(action: any): Generator<Effect, void, any> {
       }
     );
 
-    yield put({ type: ADD_TASK_SUCCESS, payload: response.data });
+    yield put({ type: ADD_TASK.SUCCESS, payload: response.data });
   } catch (error) {
-    yield put({ type: ADD_TASK_FAILED, error });
+    yield put({ type: ADD_TASK.FAILED, error });
   }
 }
 
@@ -70,16 +59,16 @@ function* handleRemoveTask(action: any) {
 
     const tasks: Task[] = yield select(selectTasks);
     const updatedTasks = tasks.filter((task) => task._id !== taskId);
-    yield put({ type: REMOVE_TASK_SUCCESS, payload: updatedTasks });
+    yield put({ type: REMOVE_TASK.SUCCESS, payload: updatedTasks });
   } catch (error) {
-    yield put({ type: REMOVE_TASK_FAILED, error });
+    yield put({ type: REMOVE_TASK.FAILED, error });
   }
 }
 
 function* handleEditTask(action: any): Generator<Effect, void, any> {
   try {
     const { taskId, newName } = action.payload;
-    console.log("TaskID in editSaga", taskId);
+
     const response = yield call(
       axios.patch,
       `${BASE_URL}/api/tasks/${taskId}/edit`,
@@ -91,10 +80,10 @@ function* handleEditTask(action: any): Generator<Effect, void, any> {
     const updatedTasks = tasks.map((task) =>
       task._id === taskId ? { ...task, name: newName } : task
     );
-    yield put({ type: EDIT_TASK_SUCCESS, payload: updatedTasks });
+    yield put({ type: EDIT_TASK.SUCCESS, payload: updatedTasks });
   } catch (error) {
-    console.log("Saga error");
-    yield put({ type: EDIT_TASK_FAILED, error });
+    console.log("error", error);
+    yield put({ type: EDIT_TASK.FAILED, error });
   }
 }
 
@@ -114,17 +103,16 @@ function* handleToggleTask(action: any): Generator<Effect, void, any> {
         : task
     );
 
-    yield put({ type: TOGGLE_TASK_SUCCESS, payload: updatedTasks });
+    yield put({ type: TOGGLE_TASK.SUCCESS, payload: updatedTasks });
   } catch (error) {
-    yield put({ type: TOGGLE_TASK_FAILED, error });
+    yield put({ type: TOGGLE_TASK.FAILED, error });
   }
 }
 
 export default function* taskSaga() {
-  console.log("in Saga Take every body");
-  yield takeEvery(FETCH_TASKS_STARTED, handleFetchTasks);
-  yield takeEvery(ADD_TASK_STARTED, handleAddTask);
-  yield takeEvery(REMOVE_TASK_STARTED, handleRemoveTask);
-  yield takeEvery(EDIT_TASK_STARTED, handleEditTask);
-  yield takeEvery(TOGGLE_TASK_STARTED, handleToggleTask);
+  yield takeEvery(FETCH_TASKS.STARTED, handleFetchTasks);
+  yield takeEvery(ADD_TASK.STARTED, handleAddTask);
+  yield takeEvery(REMOVE_TASK.STARTED, handleRemoveTask);
+  yield takeEvery(EDIT_TASK.STARTED, handleEditTask);
+  yield takeEvery(TOGGLE_TASK.STARTED, handleToggleTask);
 }

@@ -25,14 +25,12 @@ const SignUpForm: React.FC = () => {
     formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "all",
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // const Authentication = false;
     const { email, password } = data;
-    dispatch(registerUser({ email, password }));
-    navigate("/login");
+    dispatch(registerUser.STARTED({ email, password }));
   };
 
   return (

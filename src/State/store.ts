@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
-import { taskReducer } from "./taskReducers";
-import { userReducer } from "./userReducers";
+import { taskReducer } from "State/taskReducers";
+import { userReducer } from "State/userReducers";
 import createSagaMiddleware from "redux-saga";
 import { combineReducers } from "redux";
 import rootSaga from "saga/rootSaga";

@@ -1,14 +1,4 @@
-export const USER_REGISTER_STARTED = "USER_REGISTER_STARTED";
-export const USER_REGISTER_SUCCESS = "USER_REGISTER_SUCCESS";
-export const USER_REGISTER_FAILED = "USER_REGISTER_FAILED";
-
-export const USER_LOGIN_STARTED = "USER_LOGIN_STARTED";
-export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
-export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
-
-export const USER_LOGOUT_STARTED = "USER_LOGOUT_STARTED";
-export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
-export const USER_LOGOUT_FAILED = "USER_LOGOUT_FAILED";
+import { USER_REGISTER, USER_LOGIN, USER_LOGOUT } from "State/userActionTypes";
 
 export interface User {
   _id?: string;
@@ -17,16 +7,22 @@ export interface User {
   isAuthenticated?: boolean;
 }
 
-export const registerUser = (user: User) => ({
-  type: USER_REGISTER_STARTED,
-  payload: user,
-});
+export const registerUser = {
+  STARTED: (user: User) => ({
+    type: USER_REGISTER.STARTED,
+    payload: user,
+  }),
+};
 
-export const loginUser = (user: User) => ({
-  type: USER_LOGIN_STARTED,
-  payload: user,
-});
+export const loginUser = {
+  STARTED: (user: User) => ({
+    type: USER_LOGIN.STARTED,
+    payload: user,
+  }),
+};
 
-export const logoutUser = () => ({
-  type: USER_LOGOUT_STARTED,
-});
+export const logoutUser = {
+  STARTED: () => ({
+    type: USER_LOGOUT.STARTED,
+  }),
+};

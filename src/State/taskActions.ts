@@ -1,44 +1,41 @@
-export const ADD_TASK_STARTED = "ADD_TASK_STARTED";
-export const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS";
-export const ADD_TASK_FAILED = "ADD_TASK_FAILED";
+import {
+  ADD_TASK,
+  REMOVE_TASK,
+  EDIT_TASK,
+  TOGGLE_TASK,
+  FETCH_TASKS,
+} from "State/taskActionTypes";
 
-export const REMOVE_TASK_STARTED = "REMOVE_TASK_STARTED";
-export const REMOVE_TASK_SUCCESS = "REMOVE_TASK_SUCCESS";
-export const REMOVE_TASK_FAILED = "REMOVE_TASK_FAILED";
+export const addTask = {
+  STARTED: (task: { name: string; completed: boolean }) => ({
+    type: ADD_TASK.STARTED,
+    payload: task,
+  }),
+};
 
-export const EDIT_TASK_STARTED = "EDIT_TASK_STARTED";
-export const EDIT_TASK_SUCCESS = "EDIT_TASK_SUCCESS";
-export const EDIT_TASK_FAILED = "EDIT_TASK_FAILED";
+export const removeTask = {
+  STARTED: (taskId: string) => ({
+    type: REMOVE_TASK.STARTED,
+    payload: taskId,
+  }),
+};
 
-export const TOGGLE_TASK_STARTED = "TOGGLE_TASK_STARTED";
+export const editTask = {
+  STARTED: (taskId: string, newName: string) => ({
+    type: EDIT_TASK.STARTED,
+    payload: { taskId, newName },
+  }),
+};
 
-export const TOGGLE_TASK_SUCCESS = "TOGGLE_TASK_SUCCESS";
-export const TOGGLE_TASK_FAILED = "TOGGLE_TASK_FAILED";
+export const toggleTaskCompletion = {
+  STARTED: (taskId: string) => ({
+    type: TOGGLE_TASK.STARTED,
+    payload: taskId,
+  }),
+};
 
-export const FETCH_TASKS_STARTED = "FETCH_TASKS_STARTED";
-export const FETCH_TASKS_SUCCESS = "FETCH_TASKS_SUCCESS";
-export const FETCH_TASKS_FAILED = "FETCH_TASKS_FAILED";
-
-export const addTask = (task: { name: string; completed: boolean }) => ({
-  type: ADD_TASK_STARTED,
-  payload: task,
-});
-
-export const removeTask = (taskId: string) => ({
-  type: REMOVE_TASK_STARTED,
-  payload: taskId,
-});
-
-export const editTask = (taskId: string, newName: string) => ({
-  type: EDIT_TASK_STARTED,
-  payload: { taskId, newName },
-});
-
-export const toggleTaskCompletion = (taskId: string) => ({
-  type: TOGGLE_TASK_STARTED,
-  payload: taskId,
-});
-
-export const fetchTasks = () => ({
-  type: FETCH_TASKS_STARTED,
-});
+export const fetchTasks = {
+  STARTED: () => ({
+    type: FETCH_TASKS.STARTED,
+  }),
+};

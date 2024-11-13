@@ -4,7 +4,6 @@ import TaskListContainer from "components/Task/TaskList/TaskListContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "validation/form-validation";
-import axios from "axios";
 
 export interface Task {
   _id?: string;
@@ -60,7 +59,6 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
       <ol>
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
-            // console.log("hehehe: ", task._id);
             return (
               <TaskListContainer key={task._id} index={index} task={task} />
             );

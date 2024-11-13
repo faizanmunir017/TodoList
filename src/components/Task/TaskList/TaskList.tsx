@@ -51,7 +51,6 @@ function TaskList({
         className={styles.todo_items_left}
         onClick={(e) => {
           e.preventDefault();
-          // console.log("TaskList toggle task Id", task._id);
           onToggleTask(task._id);
         }}
       >

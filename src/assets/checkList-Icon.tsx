@@ -19,7 +19,7 @@ export const CheckListCircle: React.FC<CheckListCircleProps> = ({
       width="34"
       height="34"
       stroke="#22C55E"
-      fill={completed ? "#22C55E" : "#0d0d0d"} // Change fill based on completion status
+      fill={completed ? "#22C55E" : "#0d0d0d"}
     >
       <circle cx="11.998" cy="11.998" fillRule="nonzero" r="9.998"></circle>
     </svg>

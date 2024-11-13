@@ -12,7 +12,7 @@ function TodoList() {
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchTasks.STARTED());
   }, [dispatch]);
 
   const completedCount = tasks.filter((task) => task.completed).length;

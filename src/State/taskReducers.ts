@@ -1,3 +1,11 @@
+import {
+  ADD_TASK,
+  REMOVE_TASK,
+  EDIT_TASK,
+  TOGGLE_TASK,
+  FETCH_TASKS,
+} from "State/taskActionTypes";
+
 export interface Task {
   _id?: string;
   name: string;
@@ -14,23 +22,21 @@ const initialState: TaskState = {
 
 export const taskReducer = (state = initialState, action: any): TaskState => {
   switch (action.type) {
-    case "ADD_TASK_SUCCESS":
+    case ADD_TASK.SUCCESS:
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
       };
 
-    case "TOGGLE_TASK_SUCCESS":
-      console.log("toggle task Redcuer: ", action.payload);
+    case TOGGLE_TASK.SUCCESS:
       return {
         ...state,
         tasks: action.payload,
       };
 
-    case "REMOVE_TASK_SUCCESS":
-    case "EDIT_TASK_SUCCESS":
-
-    case "FETCH_TASKS_SUCCESS":
+    case REMOVE_TASK.SUCCESS:
+    case EDIT_TASK.SUCCESS:
+    case FETCH_TASKS.SUCCESS:
       return {
         ...state,
         tasks: action.payload,

@@ -8,7 +8,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUser.STARTED());
     navigate("/login");
   };
 
