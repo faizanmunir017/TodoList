@@ -34,7 +34,7 @@ form input {
 form p {
   color: #e74c3c;
   font-size: 14px;
-  margin-top: -10px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
@@ -51,5 +51,9 @@ form button {
 }
 
 form button:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+  background-color: #2980b9;
+}
+
+.link {
+  margin-top: 10px;
 }

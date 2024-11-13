@@ -25,6 +25,13 @@ export const userReducer = (state = initialState, action: any): userState => {
         token: action.payload.token,
       };
 
+    case "USER_LOGOUT_SUCCESS":
+      return {
+        ...state,
+        user: { ...action.payload.user },
+        token: action.payload.token,
+      };
+
     default:
       return state;
   }

@@ -4,8 +4,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "validation/signupValidation";
 import { registerUser } from "State/userActions";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import "./SignUpForm.css";
+import { Link, useNavigate } from "react-router-dom";
+
+import styles from "./SignUpForm.module.css";
 
 interface FormData {
   firstName: string;
@@ -17,6 +18,7 @@ interface FormData {
 
 const SignUpForm: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -27,47 +29,69 @@ const SignUpForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const Authentication = false;
+    // const Authentication = false;
     const { email, password } = data;
-    dispatch(registerUser({ email, password, isAuthenticated: false }));
+    dispatch(registerUser({ email, password }));
+    navigate("/login");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div>
-        <label>First Name</label>
-        <input {...register("firstName")} />
-        {errors.firstName && <p>{errors.firstName.message}</p>}
+        <label className={styles.label}>First Name</label>
+        <input className={styles.input} {...register("firstName")} />
+        {errors.firstName && (
+          <p className={styles.errorMessage}>{errors.firstName.message}</p>
+        )}
       </div>
 
       <div>
-        <label>Last Name</label>
-        <input {...register("lastName")} />
-        {errors.lastName && <p>{errors.lastName.message}</p>}
+        <label className={styles.label}>Last Name</label>
+        <input className={styles.input} {...register("lastName")} />
+        {errors.lastName && (
+          <p className={styles.errorMessage}>{errors.lastName.message}</p>
+        )}
       </div>
 
       <div>
-        <label>Email</label>
-        <input {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
+        <label className={styles.label}>Email</label>
+        <input className={styles.input} {...register("email")} />
+        {errors.email && (
+          <p className={styles.errorMessage}>{errors.email.message}</p>
+        )}
       </div>
 
       <div>
-        <label>Password</label>
-        <input type="password" {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
+        <label className={styles.label}>Password</label>
+        <input
+          className={styles.input}
+          type="password"
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className={styles.errorMessage}>{errors.password.message}</p>
+        )}
       </div>
 
       <div>
-        <label>Confirm Password</label>
-        <input type="password" {...register("confirmPassword")} />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+        <label className={styles.label}>Confirm Password</label>
+        <input
+          className={styles.input}
+          type="password"
+          {...register("confirmPassword")}
+        />
+        {errors.confirmPassword && (
+          <p className={styles.errorMessage}>
+            {errors.confirmPassword.message}
+          </p>
+        )}
       </div>
 
-      <button type="submit" disabled={!isValid}>
+      <button type="submit" className={styles.button} disabled={!isValid}>
         Submit
       </button>
-      <div>
+
+      <div className={styles.link}>
         <p>
           Already have an account? <Link to="/login">Login</Link>
         </p>

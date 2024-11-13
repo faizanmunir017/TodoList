@@ -6,6 +6,10 @@ export const USER_LOGIN_STARTED = "USER_LOGIN_STARTED";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
 
+export const USER_LOGOUT_STARTED = "USER_LOGOUT_STARTED";
+export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
+export const USER_LOGOUT_FAILED = "USER_LOGOUT_FAILED";
+
 export interface User {
   _id?: string;
   email: string;
@@ -21,4 +25,8 @@ export const registerUser = (user: User) => ({
 export const loginUser = (user: User) => ({
   type: USER_LOGIN_STARTED,
   payload: user,
+});
+
+export const logoutUser = () => ({
+  type: USER_LOGOUT_STARTED,
 });

@@ -39,7 +39,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.addTaskForm} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="todo">
           <input
             type="text"
@@ -51,7 +51,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
             <p className={styles.error}>{errors.taskName.message}</p>
           )}
         </label>
-        <button type="submit">
+        <button className={styles.button} type="submit">
           <span className={styles.visually_hidden}>Submit</span>
           <img src={addButton} alt="add-button" width={32} height={32} />
         </button>

@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validation/loginValidation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "State/store";
+import styles from "./LoginForm.module.css";
 
 import { loginUser } from "State/userActions";
 
@@ -25,10 +26,6 @@ const LoginForm: React.FC = () => {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  // const { isAuthenticated } = useSelector(
-  //   (state: RootState) => state.user.user
-  // );
 
   const isAuthenticated = useSelector(
     (state: RootState) => state.user.user?.isAuthenticated ?? false
@@ -52,24 +49,32 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div>
-        <label>Email</label>
-        <input {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
+        <label className={styles.label}>Email</label>
+        <input className={styles.input} {...register("email")} />
+        {errors.email && (
+          <p className={styles.errorMessage}>{errors.email.message}</p>
+        )}
       </div>
 
       <div>
-        <label>Password</label>
-        <input type="password" {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
+        <label className={styles.label}>Password</label>
+        <input
+          className={styles.input}
+          type="password"
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className={styles.errorMessage}>{errors.password.message}</p>
+        )}
       </div>
 
-      <button type="submit" disabled={!isValid}>
+      <button type="submit" className={styles.button} disabled={!isValid}>
         Submit
       </button>
 
-      <div>
+      <div className={styles.signupLink}>
         <p>
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>

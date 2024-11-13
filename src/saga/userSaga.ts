@@ -7,13 +7,14 @@ import {
   USER_LOGIN_FAILED,
   USER_LOGIN_STARTED,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT_FAILED,
+  USER_LOGOUT_STARTED,
+  USER_LOGOUT_SUCCESS,
 } from "State/userActions";
 
 const BASE_URL = import.meta.env.VITE_TASK_APP_API_URL;
 
-const selectUsers = (state: any) => {
-  state.user.user;
-};
+const selectUsers = (state: any) => state.user.user;
 
 function* registerUser(action: any): Generator<Effect, void, any> {
   try {
@@ -24,7 +25,7 @@ function* registerUser(action: any): Generator<Effect, void, any> {
   }
 }
 
-function* loginUser(action: any): Generator<Effect, void, any> {  
+function* loginUser(action: any): Generator<Effect, void, any> {
   try {
     const response = yield call(
       axios.post,
@@ -32,15 +33,7 @@ function* loginUser(action: any): Generator<Effect, void, any> {
       action.payload
     );
 
-    if (response.code != null && response.code != "200") {
-      console.log("error")
-    }
-
-    console.log("api response: ", response.data)
-
     const { token, user } = response.data;
-    console.log("user in user saga: ", user);
-    console.log("token in user Saga: ", token);
 
     yield put({
       type: USER_LOGIN_SUCCESS,
@@ -52,7 +45,28 @@ function* loginUser(action: any): Generator<Effect, void, any> {
   }
 }
 
+function* logoutUser(): Generator {
+  try {
+    const currentUser = yield select(selectUsers);
+
+    yield put({
+      type: USER_LOGOUT_SUCCESS,
+      payload: {
+        user: {
+          ...currentUser,
+          isAuthenticated: false,
+        },
+        token: null,
+      },
+    });
+  } catch (error) {
+    console.log("Error in logout saga:", error);
+    yield put({ type: USER_LOGOUT_FAILED, error });
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(USER_REGISTER_STARTED, registerUser);
   yield takeEvery(USER_LOGIN_STARTED, loginUser);
+  yield takeEvery(USER_LOGOUT_STARTED, logoutUser);
 }
