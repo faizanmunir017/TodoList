@@ -4,7 +4,6 @@
 
 .loginForm_form {
   margin: 0 auto;
-  margin-top: 80px;
   max-width: 400px;
   padding: 20px;
   background-color: black;
@@ -55,4 +54,5 @@
 
 .loginForm_signupLink {
   margin-top: 10px;
+  color: red;
 }

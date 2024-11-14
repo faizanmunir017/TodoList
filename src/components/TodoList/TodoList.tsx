@@ -1,6 +1,5 @@
 import Section from "components/Section/Section";
 import Header from "components/Header/Header";
-import styles from "styles/styles.module.css";
 import { RootState } from "State/store";
 import { useSelector, useDispatch } from "react-redux";
 import AddTaskContainer from "components/AddTask/AddTaskContainer";
@@ -19,10 +18,10 @@ function TodoList() {
   const totalCount = tasks.length;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
+    <div className=" h-screen bg-black text-white">
+      <div className="w-[70%] mx-auto">
         <Header />
-        <div className={styles.insidecontainer}>
+        <div className="flex flex-col items-center max-w-[500px] mx-auto gap-[20px]">
           <Section completedCount={completedCount} totalCount={totalCount} />
           <AddTaskContainer />
         </div>
