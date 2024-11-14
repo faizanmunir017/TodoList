@@ -1,4 +1,4 @@
-import "./TaskList.css";
+import styles from "./TaskList.module.css";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,10 +10,10 @@ import DeleteButton from "assets/Delete-Icon";
 
 interface TaskListProps {
   index: number;
-  task: { id: number; name: string; completed: boolean };
-  onToggleTask: (index: number) => void;
-  onDeleteTask: (index: number) => void;
-  onEditTask: (index: number, newName: string) => void;
+  task: { _id: string; name: string; completed: boolean };
+  onToggleTask: (taskId: string) => void;
+  onDeleteTask: (taskId: string) => void;
+  onEditTask: (taskId: string, newName: string) => void;
 }
 
 interface FormData {
@@ -40,26 +40,25 @@ function TaskList({
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    onEditTask(index, data.taskName);
+    onEditTask(task._id, data.taskName);
     setIsEditing(false);
     reset({ taskName: data.taskName });
   };
 
   return (
-    <li className="todo_item">
+    <li className={styles.todo_item}>
       <button
-        className="todo_items_left"
+        className={styles.todo_items_left}
         onClick={(e) => {
           e.preventDefault();
-          onToggleTask(index);
+          onToggleTask(task._id);
         }}
-        tabIndex={isEditing ? -1 : 0}
       >
         <CheckListCircle completed={task.completed} />
       </button>
 
       {isEditing ? (
-        <form onSubmit={handleSubmit(onSubmit)} className="edit-form">
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.edit_form}>
           <input
             className="edit-text"
             type="text"
@@ -68,24 +67,24 @@ function TaskList({
             autoFocus
           />
 
-          <button className="save-button" type="submit">
+          <button className={styles.save_button} type="submit">
             Save
           </button>
           {errors.taskName && (
-            <p className="error">{errors.taskName.message}</p>
+            <p className={styles.error}>{errors.taskName.message}</p>
           )}
         </form>
       ) : (
-        <p onDoubleClick={() => setIsEditing(true)}>{task.name}</p>
+        <p>{task.name}</p>
       )}
 
-      <div className="todo_items_right">
+      <div className={styles.todo_items_right}>
         <button onClick={() => setIsEditing(true)}>
-          <span className="visually-hidden">Edit</span>
+          <span className={styles.visually_hidden}>Edit</span>
           <EditIcon />
         </button>
-        <button onClick={() => onDeleteTask(index)}>
-          <span className="visually-hidden">Delete</span>
+        <button onClick={() => onDeleteTask(task._id)}>
+          <span className={styles.visually_hidden}>Delete</span>
           <DeleteButton />
         </button>
       </div>

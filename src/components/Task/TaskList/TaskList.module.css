@@ -74,7 +74,7 @@ p[contenteditable="true"]:focus {
   fill: #c2b39a;
 }
 
-.visually-hidden {
+.visually_hidden {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);
   padding: 0 !important;
@@ -85,7 +85,7 @@ p[contenteditable="true"]:focus {
   white-space: nowrap;
 }
 
-.edit-form {
+.edit_form {
   justify-content: space-between;
   width: 100%;
   border: 1px solid #c2b39a;
@@ -94,13 +94,13 @@ p[contenteditable="true"]:focus {
   color: #fff;
 }
 
-.edit-text {
+.edit_text {
   background-color: black;
   color: white;
   width: 83%;
 }
 
-.save-button {
+.save_button {
   background-color: #88ab33;
   color: white;
 }

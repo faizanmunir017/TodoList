@@ -1,15 +1,20 @@
-//initial set up of store
-
 import { applyMiddleware, createStore } from "redux";
-import { taskReducer } from "./taskReducers";
+import { taskReducer } from "State/taskReducers";
+import { userReducer } from "State/userReducers";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "../saga/saga";
+import { combineReducers } from "redux";
+import rootSaga from "saga/rootSaga";
 import { composeWithDevTools } from "redux-devtools-extension";
+
+const rootReducer = combineReducers({
+  tasks: taskReducer,
+  user: userReducer,
+});
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
-  taskReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 sagaMiddleware.run(rootSaga);

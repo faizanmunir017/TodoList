@@ -5,3 +5,11 @@
   gap: 12px;
   padding: 42px;
 }
+
+.logout_button {
+  margin-left: 450px;
+  padding: 9px;
+  height: 32px;
+  background-color: green;
+  color: white;
+}

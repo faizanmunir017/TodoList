@@ -1,15 +1,12 @@
-import "./AddTask.css";
+import styles from "./AddTask.module.css";
 import addButton from "assets/add-button.svg";
 import TaskListContainer from "components/Task/TaskList/TaskListContainer";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "validation/form-validation";
-import { useFetchTasks } from "hooks/useFetchTasks";
-import { useAddTask } from "hooks/useAddTask";
-import { useEffect, useState } from "react";
 
 export interface Task {
-  id: number;
+  _id?: string;
   name: string;
   completed: boolean;
 }
@@ -20,8 +17,6 @@ interface AddTaskProps {
 }
 
 const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
-  const { data: initialTasks, error, isLoading } = useFetchTasks();
-
   const {
     register,
     handleSubmit,
@@ -31,31 +26,11 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
     resolver: yupResolver(schema),
   });
 
-  const mutation = useAddTask();
-
-  useEffect(() => {
-    if (initialTasks) {
-      initialTasks.forEach((task) => {
-        addTask(task);
-      });
-    }
-  }, [initialTasks, addTask]);
-
-  const onSubmit: SubmitHandler<{ taskName: string }> = (data) => {
+  const onSubmit: SubmitHandler<{ taskName: string }> = async (data) => {
     const newTask = {
-      id: tasks.length + 1,
       name: data.taskName,
       completed: false,
     };
-
-    mutation.mutate(newTask, {
-      onSuccess: (data) => {
-        console.log("Task added:", data);
-      },
-      onError: (error) => {
-        console.error("Error adding task:", error);
-      },
-    });
 
     addTask(newTask);
     reset();
@@ -63,7 +38,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.addTaskForm} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="todo">
           <input
             type="text"
@@ -72,11 +47,11 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
             {...register("taskName")}
           />
           {errors.taskName && (
-            <p className="error">{errors.taskName.message}</p>
+            <p className={styles.error}>{errors.taskName.message}</p>
           )}
         </label>
-        <button type="submit">
-          <span className="visually-hidden">Submit</span>
+        <button className={styles.button} type="submit">
+          <span className={styles.visually_hidden}>Submit</span>
           <img src={addButton} alt="add-button" width={32} height={32} />
         </button>
       </form>
@@ -85,7 +60,7 @@ const AddTask = ({ tasks, addTask }: AddTaskProps): JSX.Element => {
         {tasks.length > 0 ? (
           tasks.map((task, index) => {
             return (
-              <TaskListContainer key={task.id} index={index} task={task} />
+              <TaskListContainer key={task._id} index={index} task={task} />
             );
           })
         ) : (
