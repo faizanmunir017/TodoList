@@ -1,12 +1,11 @@
-body {
+.loginForm_body {
   background-color: black;
 }
 
-form {
+.loginForm_form {
   margin: 0 auto;
   margin-top: 80px;
   max-width: 400px;
-
   padding: 20px;
   background-color: black;
   border: 1px solid #ddd;
@@ -14,14 +13,14 @@ form {
   font-family: Arial, sans-serif;
 }
 
-form label {
+.loginForm_label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
   color: white;
 }
 
-form input {
+.loginForm_input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -31,14 +30,14 @@ form input {
   box-sizing: border-box;
 }
 
-form p {
+.loginForm_errorMessage {
   color: #e74c3c;
   font-size: 14px;
   margin-top: -10px;
   margin-bottom: 10px;
 }
 
-form button {
+.loginForm_button {
   width: 100%;
   padding: 10px;
   background-color: green;
@@ -50,9 +49,10 @@ form button {
   transition: background-color 0.3s;
 }
 
-form button:hover {
+.loginForm_button:hover {
   background-color: #2980b9;
 }
-.signupLink {
+
+.loginForm_signupLink {
   margin-top: 10px;
 }

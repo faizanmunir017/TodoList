@@ -34,62 +34,64 @@ const SignUpForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.signupForm}>
       <div>
-        <label className={styles.label}>First Name</label>
-        <input className={styles.input} {...register("firstName")} />
+        <label className={styles.signupLabel}>First Name</label>
+        <input className={styles.signupInput} {...register("firstName")} />
         {errors.firstName && (
-          <p className={styles.errorMessage}>{errors.firstName.message}</p>
+          <p className={styles.signupErrorMessage}>
+            {errors.firstName.message}
+          </p>
         )}
       </div>
 
       <div>
-        <label className={styles.label}>Last Name</label>
-        <input className={styles.input} {...register("lastName")} />
+        <label className={styles.signupLabel}>Last Name</label>
+        <input className={styles.signupInput} {...register("lastName")} />
         {errors.lastName && (
-          <p className={styles.errorMessage}>{errors.lastName.message}</p>
+          <p className={styles.signupErrorMessage}>{errors.lastName.message}</p>
         )}
       </div>
 
       <div>
-        <label className={styles.label}>Email</label>
-        <input className={styles.input} {...register("email")} />
+        <label className={styles.signupLabel}>Email</label>
+        <input className={styles.signupInput} {...register("email")} />
         {errors.email && (
-          <p className={styles.errorMessage}>{errors.email.message}</p>
+          <p className={styles.signupErrorMessage}>{errors.email.message}</p>
         )}
       </div>
 
       <div>
-        <label className={styles.label}>Password</label>
+        <label className={styles.signupLabel}>Password</label>
         <input
-          className={styles.input}
+          className={styles.signupInput}
           type="password"
           {...register("password")}
         />
         {errors.password && (
-          <p className={styles.errorMessage}>{errors.password.message}</p>
+          <p className={styles.signupErrorMessage}>{errors.password.message}</p>
         )}
       </div>
 
       <div>
-        <label className={styles.label}>Confirm Password</label>
+        <label className={styles.signupLabel}>Confirm Password</label>
         <input
-          className={styles.input}
+          className={styles.signupInput}
           type="password"
           {...register("confirmPassword")}
         />
         {errors.confirmPassword && (
-          <p className={styles.errorMessage}>
+          <p className={styles.signupErrorMessage}>
             {errors.confirmPassword.message}
           </p>
         )}
       </div>
 
-      <button type="submit" className={styles.button} disabled={!isValid}>
+      <button type="submit" className={styles.signupButton} disabled={!isValid}>
         Submit
       </button>
 
-      <div className={styles.link}>
+      <div className={styles.signupLink}>
         <p>
           Already have an account? <Link to="/login">Login</Link>
         </p>
