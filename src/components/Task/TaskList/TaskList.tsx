@@ -1,4 +1,3 @@
-import styles from "./TaskList.module.css";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -46,9 +45,9 @@ function TaskList({
   };
 
   return (
-    <li className={styles.todo_item}>
+    <li className="flex mb-6 items-center gap-4 justify-between p-[12px] bg-black border-solid border border-[#c2b39a] text-white text-[16px]">
       <button
-        className={styles.todo_items_left}
+        className="flex items-center gap-[12px] text-white text-[16px] bg-transparent border-none"
         onClick={(e) => {
           e.preventDefault();
           onToggleTask(task._id);
@@ -58,33 +57,48 @@ function TaskList({
       </button>
 
       {isEditing ? (
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.edit_form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex justify-between w-full  text-white text-base bg-black"
+        >
           <input
-            className="edit-text"
+            className="bg-black text-white"
             type="text"
             {...register("taskName")}
             defaultValue={task.name}
             autoFocus
           />
 
-          <button className={styles.save_button} type="submit">
+          <button className="bg-[#88ab33] text-white" type="submit">
             Save
           </button>
           {errors.taskName && (
-            <p className={styles.error}>{errors.taskName.message}</p>
+            <p className="text-red-500 mt-2 text-xs">
+              {errors.taskName.message}
+            </p>
           )}
         </form>
       ) : (
         <p>{task.name}</p>
       )}
 
-      <div className={styles.todo_items_right}>
-        <button onClick={() => setIsEditing(true)}>
-          <span className={styles.visually_hidden}>Edit</span>
+      <div className="flex items-center bg-transparent gap-1">
+        <button
+          onClick={() => setIsEditing(true)}
+          className="bg-transparent text-white border-solid border-0 fill-[#c2b39a]"
+        >
+          <span className="absolute inset-0 w-px h-px clip-rect overflow-hidden border-0 p-0 whitespace-nowrap">
+            Edit
+          </span>
           <EditIcon />
         </button>
-        <button onClick={() => onDeleteTask(task._id)}>
-          <span className={styles.visually_hidden}>Delete</span>
+        <button
+          onClick={() => onDeleteTask(task._id)}
+          className="bg-transparent text-white border-solid border-0 fill-[#c2b39a]"
+        >
+          <span className="absolute inset-0 w-px h-px clip-rect overflow-hidden border-0 p-0 whitespace-nowrap">
+            Delete
+          </span>
           <DeleteButton />
         </button>
       </div>

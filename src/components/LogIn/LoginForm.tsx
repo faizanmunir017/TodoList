@@ -44,7 +44,7 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className={styles.loginForm_body}>
+    <div className="flex justify-center items-center h-screen bg-black  ">
       <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm_form}>
         <div>
           <label className={styles.loginForm_label}>Email</label>
